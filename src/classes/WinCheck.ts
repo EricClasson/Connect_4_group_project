@@ -8,7 +8,7 @@ export default class WinCheck {
   }
 
   checkForWin(): boolean {
-    const playerToCheck = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
+    const playerToCheck = this.currentPlayer;
     const streakLength = 4;
     const offsets = [
       [

@@ -1,60 +1,59 @@
-import WinCheck from "./WinCheck.js";
-import MakeMoveCheck from "./MakeMoveCheck.js";
-import { Fragment } from "react";
+import WinCheck from './WinCheck.js';
+import MakeMoveCheck from './MakeMoveCheck.js';
+import { Fragment } from 'react';
 
 export default class Board {
-  matrix: string[][];
-  currentPlayer: string;
-  winCheck: WinCheck;
-  MakeMoveCheck: MakeMoveCheck;
-  stateUpdater: Function;
+    matrix: string[][];
+    currentPlayer: string;
+    winCheck: WinCheck;
+    MakeMoveCheck: MakeMoveCheck;
+    stateUpdater: Function;
 
-  constructor(stateUpdater: Function) {
-    this.stateUpdater = stateUpdater;
-    this.matrix = [...new Array(6)].map((_row) =>
-      [...new Array(7)].map((_column) => " ")
-    );
-    this.currentPlayer = "Red";
-    this.winCheck = new WinCheck(this.matrix, this.currentPlayer);
-    this.MakeMoveCheck = new MakeMoveCheck(this.matrix, this.currentPlayer);
-  }
-
-  render() {
-    return (
-      <div className="board">
-        {this.matrix.map((row, rowIndex) => (
-          <Fragment key={rowIndex}>
-            {row.map((column, columnIndex) => (
-              <div
-                key={columnIndex}
-                className={`column ${column} ${
-                  column === " " ? "" : column === "Red" ? "red" : "yellow"
-                }`}
-                onClick={() => this.makeMove(columnIndex)}
-              ></div>
-            ))}
-          </Fragment>
-        ))}
-      </div>
-    );
-  }
-
-  makeMove(column: number): boolean {
-    this.stateUpdater();
-    const success = this.MakeMoveCheck.makeMove(column);
-    if (success) {
-      this.currentPlayer = this.currentPlayer === "Red" ? "Yellow" : "Red";
-      this.winCheck = new WinCheck(this.matrix, this.currentPlayer);
-      this.MakeMoveCheck = new MakeMoveCheck(this.matrix, this.currentPlayer);
+    constructor(stateUpdater: Function) {
+        this.stateUpdater = stateUpdater;
+        this.matrix = [...new Array(6)].map(_row => [...new Array(7)].map(_column => ' '));
+        this.currentPlayer = 'Red';
+        this.winCheck = new WinCheck(this.matrix, this.currentPlayer);
+        this.MakeMoveCheck = new MakeMoveCheck(this.matrix, this.currentPlayer);
     }
-    return success;
-  }
 
-  checkForWin(): boolean {
-    return this.winCheck.checkForWin();
-  }
+    render() {
+        return (
+            <div className="board">
+                {this.matrix.map((row, rowIndex) => (
+                    <Fragment key={rowIndex}>
+                        {row.map((column, columnIndex) => (
+                            <div
+                                key={columnIndex}
+                                className={`column ${column} ${column === ' ' ? '' : column === 'Red' ? 'red' : 'yellow'}`}
+                                onClick={() => this.makeMove(columnIndex)}
+                            ></div>
+                        ))}
+                    </Fragment>
+                ))}
+            </div>
+        );
+    }
 
-  draw(): boolean {
-    return this.matrix[0].every((cell) => cell !== " ");
-  }
+    makeMove(column: number): boolean {
+        this.stateUpdater();
+        const success = this.MakeMoveCheck.makeMoveCheck(column);
+        if (success) {
+            if (this.checkForWin()) {
+                return success;
+            }
+            this.currentPlayer = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
+            this.winCheck = new WinCheck(this.matrix, this.currentPlayer);
+            this.MakeMoveCheck = new MakeMoveCheck(this.matrix, this.currentPlayer);
+        }
+        return success;
+    }
+
+    checkForWin(): boolean {
+        return this.winCheck.checkForWin();
+    }
+
+    draw(): boolean {
+        return this.matrix[0].every(cell => cell !== ' ');
+    }
 }
