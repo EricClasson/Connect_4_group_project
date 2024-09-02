@@ -6,8 +6,7 @@ const getPrompt = prompt();
 
 export default class Game {
   board: Board;
-  playerRed?: Player;
-  playerYellow?: Player;
+  players: { [key: string]: Player } = {};
 
   constructor() {
     this.createPlayers();
@@ -25,12 +24,13 @@ export default class Game {
     const nameRed = isRedAI ? 'AI-Röd' : getPrompt('Spelare Röd:s namn: ');
     const nameYellow = isYellowAI ? 'AI-Gul' : getPrompt('Spelare Gul:s namn: ');
 
-    this.playerRed = new Player(nameRed, 'Red', isRedAI);
-    this.playerYellow = new Player(nameYellow, 'Yellow', isYellowAI);
+    this.players = {
+      Red: new Player(nameRed, 'Red', isRedAI),
+      Yellow: new Player(nameYellow, 'Yellow', isYellowAI),
+    };
   }
-
-  getPlayersName(): string | undefined {
-    return this.board.currentPlayer === 'Red' ? this.playerRed?.name : this.playerYellow?.name;
+  getCurrentPlayer(): Player {
+    return this.players[this.board.currentPlayer];
   }
 
   playAgain(): void {
@@ -44,27 +44,16 @@ export default class Game {
   startGameLoop(): void {
     this.board.render();
     const currentPlayer = this.board.currentPlayer;
+    const player = this.players[currentPlayer];
 
-    if (currentPlayer === 'Red' && this.playerRed?.isAI) {
-      console.log(`AI (${this.playerRed.name}) spelar...`);
+    if (player.isAI) {
+      console.log(`AI (${player.name}) spelar...`);
       setTimeout(() => {
-        this.playerRed?.makeAIMove(this.board);
+        player.makeAIMove(this.board);
         this.checkGameState();
       }, 800);
-    } else if (currentPlayer === 'Yellow' && this.playerYellow?.isAI) {
-      console.log(`AI (${this.playerYellow.name}) spelar...`);
-      setTimeout(() => {
-        this.playerYellow?.makeAIMove(this.board);
-        this.checkGameState();
-      }, 800);
-    } else if (currentPlayer === 'Red') {
-      if (!this.playerRed?.makePlayerMove(this.board)) {
-        setTimeout(() => this.startGameLoop(), 1000);
-        return;
-      }
-      this.checkGameState();
-    } else if (currentPlayer === 'Yellow') {
-      if (!this.playerYellow?.makePlayerMove(this.board)) {
+    } else {
+      if (!player.makePlayerMove(this.board)) {
         setTimeout(() => this.startGameLoop(), 1000);
         return;
       }
@@ -73,10 +62,10 @@ export default class Game {
   }
 
   checkGameState(): void {
+    const winningPlayer = this.getCurrentPlayer();
     if (this.board.checkForWin()) {
       this.board.render();
-      const winningPlayer = this.board.currentPlayer === 'Red' ? this.playerYellow : this.playerRed;
-      console.log(`Grattis ${winningPlayer?.name}! Du vann!`);
+      console.log(`Grattis ${winningPlayer.name}! Du vann!`);
       this.playAgain();
       return;
     }

@@ -7,7 +7,7 @@ export default class MakeMoveCheck {
     this.currentPlayer = currentPlayer;
   }
 
-  makeMove(column: number): boolean {
+  makeMoveCheck(column: number): boolean {
     if (column < 0 || column >= 7) return false;
 
     for (let row = this.matrix.length - 1; row >= 0; row--) {
