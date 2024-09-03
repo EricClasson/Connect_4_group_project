@@ -1,16 +1,47 @@
 .board {
-  aspect-ratio: 1;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
 }
 .column {
-  background-color: orange;
+    background-color: orange;
 }
 .red {
-  background-color: red;
+    background-color: red;
 }
 
 .yellow {
-  background-color: yellow;
+    background-color: yellow;
+}
+
+/* Added basic css for display, Dennis you are free to change styling */
+
+.player-corner {
+    position: absolute;
+    background-color: #fcfbfb;
+    color: black;
+    padding-inline: 2rem;
+    padding-block: 0.5rem;
+    min-width: 10rem;
+    min-height: 2rem;
+    text-align: center;
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+}
+
+.highlight-red {
+    background-color: red;
+}
+
+.highlight-yellow {
+    background-color: yellow;
 }
