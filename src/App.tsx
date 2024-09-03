@@ -1,7 +1,7 @@
-import "./App.css";
-import BoardClass from "./classes/Board";
-import { FormEvent, useState } from "react";
-import PlayerClass from "./classes/Player";
+import './App.css';
+import BoardClass from './classes/Board';
+import { FormEvent, useState } from 'react';
+import PlayerClass from './classes/Player';
 
 function App() {
   const [state, _setState] = useState({
@@ -10,7 +10,7 @@ function App() {
     playerYellow: null as PlayerClass | null,
   });
 
-  const setState = (prop: string = "", value: any = "") => {
+  const setState = (prop: string = '', value: any = '') => {
     _setState({ ...state, [prop]: value });
   };
 
@@ -21,8 +21,8 @@ function App() {
     const form = event.target as HTMLFormElement;
     const playerRed = form.elements[0] as HTMLInputElement;
     const playerYellow = form.elements[1] as HTMLInputElement;
-    state.playerRed = new PlayerClass(playerRed.value, "Red");
-    state.playerYellow = new PlayerClass(playerYellow.value, "Yellow");
+    state.playerRed = new PlayerClass(playerRed.value, 'Red');
+    state.playerYellow = new PlayerClass(playerYellow.value, 'Yellow');
     console.log(state.playerYellow);
     console.log(state.playerRed);
     board.stateUpdater();
@@ -53,7 +53,38 @@ function App() {
     );
   };
 
-  return <>{!playerRed || !playerYellow ? <CreatePlayer /> : board.render()}</>;
+  return (
+    <>
+      {!playerRed || !playerYellow ? <CreatePlayer /> : board.render()}
+      {!board.gameOver ? (
+        <div className="info-currentplayer"></div>
+      ) : (
+        <div className="who-won-info">
+          {board.winner ? (
+            <>
+              <div className="winner-info">
+                <h3>The winner is</h3>
+              </div>
+              <div>
+                {' '}
+                <h2>({state.board.winner})</h2>
+              </div>
+            </>
+          ) : (
+            <>
+              {' '}
+              <h2>It's a tie.</h2>
+            </>
+          )}
+          <div>
+            <button>Reset Game</button>
+
+            <button>New game</button>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default App;
