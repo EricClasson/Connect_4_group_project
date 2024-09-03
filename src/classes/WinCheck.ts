@@ -1,14 +1,13 @@
+import Board from './Board';
 export default class WinCheck {
-  matrix: string[][];
-  currentPlayer: string;
+  board: Board;
 
-  constructor(matrix: string[][], currentPlayer: string) {
-    this.matrix = matrix;
-    this.currentPlayer = currentPlayer;
+  constructor(board: Board) {
+    this.board = board;
   }
 
-  checkForWin(): boolean {
-    const playerToCheck = this.currentPlayer;
+  checkForWin(): boolean | string {
+    const playerToCheck = this.board.currentPlayer;
     const streakLength = 4;
     const offsets = [
       [
@@ -37,19 +36,19 @@ export default class WinCheck {
       ],
     ];
 
-    for (let r = 0; r < this.matrix.length; r++) {
-      for (let c = 0; c < this.matrix[0].length; c++) {
-        for (let winType of offsets) {
+    for (let r = 0; r < this.board.matrix.length; r++) {
+      for (let c = 0; c < this.board.matrix[0].length; c++) {
+        for (const winType of offsets) {
           let colorsInCombo = '';
-          for (let [ro, co] of winType) {
-            if (r + ro >= 0 && r + ro < this.matrix.length && c + co >= 0 && c + co < this.matrix[0].length) {
-              colorsInCombo += this.matrix[r + ro][c + co];
+          for (const [ro, co] of winType) {
+            if (r + ro >= 0 && r + ro < this.board.matrix.length && c + co >= 0 && c + co < this.board.matrix[0].length) {
+              colorsInCombo += this.board.matrix[r + ro][c + co];
             } else {
               colorsInCombo += ' ';
             }
           }
           if (colorsInCombo === playerToCheck.repeat(streakLength)) {
-            return true;
+            return playerToCheck;
           }
         }
       }
