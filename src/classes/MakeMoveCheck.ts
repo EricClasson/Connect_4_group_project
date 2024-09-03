@@ -1,4 +1,4 @@
-import Board from "./Board";
+import Board from './Board';
 export default class MakeMoveCheck {
   board: Board;
 
@@ -10,7 +10,7 @@ export default class MakeMoveCheck {
     if (column < 0 || column >= 7) return false;
 
     for (let row = this.board.matrix.length - 1; row >= 0; row--) {
-      if (this.board.matrix[row][column] === " ") {
+      if (this.board.matrix[row][column] === ' ') {
         this.board.matrix[row][column] = this.board.currentPlayer;
         return true;
       }

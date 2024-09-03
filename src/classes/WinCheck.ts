@@ -1,4 +1,4 @@
-import Board from "./Board";
+import Board from './Board';
 export default class WinCheck {
   board: Board;
 
@@ -39,12 +39,12 @@ export default class WinCheck {
     for (let r = 0; r < this.board.matrix.length; r++) {
       for (let c = 0; c < this.board.matrix[0].length; c++) {
         for (const winType of offsets) {
-          let colorsInCombo = "";
+          let colorsInCombo = '';
           for (const [ro, co] of winType) {
             if (r + ro >= 0 && r + ro < this.board.matrix.length && c + co >= 0 && c + co < this.board.matrix[0].length) {
               colorsInCombo += this.board.matrix[r + ro][c + co];
             } else {
-              colorsInCombo += " ";
+              colorsInCombo += ' ';
             }
           }
           if (colorsInCombo === playerToCheck.repeat(streakLength)) {
