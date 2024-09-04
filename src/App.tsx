@@ -57,17 +57,27 @@ function App() {
     <>
       {!playerRed || !playerYellow ? <CreatePlayer /> : board.render()}
       {!board.gameOver ? (
-        <div className="info-currentplayer"></div>
+        <div className="game-currentplayer"></div>
       ) : (
-        <div className="who-won-info">
+        <div className="gameover-info">
           {board.winner ? (
             <>
-              <div className="winner-info">
-                <h3>The winner is</h3>
-              </div>
+              <h2>The winner is</h2>
+
               <div>
                 {' '}
-                <h2>({state.board.winner})</h2>
+                <h3
+                  className={
+                    state.board.winner === ''
+                      ? ''
+                      : state.board.winner === 'Red'
+                      ? 'red-text'
+                      : 'yellow-text'
+                  }
+                >
+                  {state.board.winner}
+                </h3>
+                {/* <h2>({state.board.currentPlayer})</h2> */}
               </div>
             </>
           ) : (
@@ -76,7 +86,7 @@ function App() {
               <h2>It's a tie.</h2>
             </>
           )}
-          <div>
+          <div className="gameover-btn">
             <button>Reset Game</button>
 
             <button>New game</button>
