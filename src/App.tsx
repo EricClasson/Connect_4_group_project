@@ -58,8 +58,9 @@ function App() {
     const highscores = JSON.parse(
       localStorage.getItem('highscores') || '[]'
     ) as { name: string; moves: number }[];
-    highscores.sort((a, b) => a.moves - b.moves);
+
     highscores.push({ name, moves });
+    highscores.sort((a, b) => a.moves - b.moves);
 
     localStorage.setItem('highscores', JSON.stringify(highscores));
   };

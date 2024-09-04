@@ -24,8 +24,8 @@ export default class Board {
     this.winner = false;
     this.isDraw = false;
     this.gameOver = false;
-    this.moveCounterRed = 0;
-    this.moveCounterYellow = 0;
+    this.moveCounterRed = 1;
+    this.moveCounterYellow = 1;
   }
 
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
