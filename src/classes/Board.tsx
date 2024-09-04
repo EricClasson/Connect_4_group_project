@@ -29,11 +29,7 @@ export default class Board {
         {this.matrix.map((row, rowIndex) => (
           <Fragment key={rowIndex}>
             {row.map((column, columnIndex) => (
-              <div
-                key={columnIndex}
-                className={`column ${column} ${column === ' ' ? '' : column === 'Red' ? 'red' : 'yellow'}`}
-                onClick={() => this.makeMove(columnIndex)}
-              ></div>
+              <div key={columnIndex} className={`column ${column.toLowerCase()}`} onClick={() => this.makeMove(columnIndex)}></div>
             ))}
           </Fragment>
         ))}
@@ -45,7 +41,7 @@ export default class Board {
     if (this.gameOver) return false;
     this.stateUpdater();
     if (this.makeMoveCheck.makeMoveCheck(column)) {
-      this.winner = this.winCheck.checkForWin();
+      this.winner = this.winCheck.checkForWin(this.currentPlayer);
       this.isDraw = this.draw();
       this.gameOver = this.winner || this.isDraw;
       this.currentPlayer = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
@@ -53,7 +49,7 @@ export default class Board {
     }
     return false;
   }
-
+  
   draw(): boolean {
     return this.matrix[0].every((cell) => cell !== ' ');
   }
