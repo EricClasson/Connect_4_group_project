@@ -16,3 +16,19 @@ class HardAIClass extends PlayerClass {
     super(name, color);
   }
 }
+
+function App() {
+  const [state, _setState] = useState({
+    board: new BoardClass(() => setState()),
+    playerRed: null as PlayerClass | null,
+    playerYellow: null as PlayerClass | null,
+  });
+
+  const setState = (prop: string = '', value: any = '') => {
+    _setState({ ...state, [prop]: value });
+  };
+
+  const { board, playerRed, playerYellow } = state;
+
+
+export default App;
