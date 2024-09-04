@@ -42,4 +42,14 @@ function App() {
     const playAgainstYellowAiHard = form.elements[5] as HTMLSelectElement;
 
 
+        if (playAgainstRedAiEasy.checked) {
+      state.playerRed =
+        playAgainstRedAiHard.value === 'easy'
+          ? new EasyAIClass('AI Red', 'Red')
+          : new HardAIClass('AI Red', 'Red');
+    } else {
+      state.playerRed = new PlayerClass(playerRedInput.value, 'Red');
+    }
+
+    
 export default App;
