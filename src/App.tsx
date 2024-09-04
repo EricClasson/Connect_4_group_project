@@ -64,7 +64,7 @@ function App() {
             <>
               <h2>The winner is</h2>
 
-              <div>
+              <div className="winner-display">
                 {' '}
                 <h3
                   className={
@@ -75,9 +75,22 @@ function App() {
                       : 'yellow-text'
                   }
                 >
-                  {state.board.winner}
+                  {' '}
+                  ({state.board.winner})
                 </h3>
-                {/* <h2>({state.board.currentPlayer})</h2> */}
+                <h3
+                  className={
+                    state.board.winner === ''
+                      ? ''
+                      : state.board.winner === 'Red'
+                      ? 'red-text'
+                      : 'yellow-text'
+                  }
+                >
+                  {state.board.winner === 'Red'
+                    ? playerRed!.name
+                    : playerYellow!.name}
+                </h3>
               </div>
             </>
           ) : (
