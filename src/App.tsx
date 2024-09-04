@@ -2,6 +2,7 @@ import './App.css';
 import BoardClass from './classes/Board';
 import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
+import { Fragment } from 'react';
 
 function App() {
   const [state, _setState] = useState({
@@ -57,7 +58,7 @@ function App() {
     const highscores = JSON.parse(
       localStorage.getItem('highscores') || '[]'
     ) as { name: string; moves: number }[];
-
+    highscores.sort((a, b) => a.moves - b.moves);
     highscores.push({ name, moves });
 
     localStorage.setItem('highscores', JSON.stringify(highscores));
@@ -79,6 +80,24 @@ function App() {
       setScoreUpdated(true);
     }
   }, [board.gameOver, board.winner, scoreUpdated]);
+
+  const ViewHighScoreList = () => {
+    const highscoresData = JSON.parse(
+      localStorage.getItem('highscores') || '[]'
+    ) as { name: string; moves: number }[];
+
+    return (
+      <ul className="highscore-list">
+        <h3>Highscorelist</h3>
+        {highscoresData.map((list, index) => (
+          <li key={index}>
+            <p>Name on player: {list.name}</p>
+            <p>Amount moves for win: {list.moves}</p>
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   const ViewWinner = () => {
     return (
@@ -138,6 +157,7 @@ function App() {
       ) : (
         board.render(playerRed, playerYellow)
       )}
+      <ViewHighScoreList />
       {!board.gameOver ? (
         <div className="game-currentplayer"></div>
       ) : (
