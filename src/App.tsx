@@ -30,5 +30,16 @@ function App() {
 
   const { board, playerRed, playerYellow } = state;
 
+  function registerName(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const playerRedInput = form.elements[0] as HTMLInputElement;
+    const playerYellowInput = form.elements[1] as HTMLInputElement;
+    // under this is ai players red and yellow hard ore Easy
+    const playAgainstRedAiEasy = form.elements[2] as HTMLInputElement;
+    const playAgainstRedAiHard = form.elements[3] as HTMLSelectElement;
+    const playAgainstYellowAiEasy = form.elements[4] as HTMLInputElement;
+    const playAgainstYellowAiHard = form.elements[5] as HTMLSelectElement;
+
 
 export default App;
