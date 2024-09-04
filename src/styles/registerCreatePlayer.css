@@ -11,8 +11,8 @@ body {
 }
 
 .modal {
-  background-color: var(--accent);
-  padding: 1rem;
+  background: linear-gradient(to right, var(--accent), #71b4f7);
+  padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -20,9 +20,11 @@ body {
 .modal h2 {
   text-align: center;
   margin-bottom: 1.2rem;
-  color: var(--background);
-  font-size: 34px;
-  margin-block: 1rem;
+  color: var(--color-text);
+  font-size: 37px;
+  margin-block: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
 }
 
 .player-selection {
@@ -60,7 +62,7 @@ label input[type='checkbox'] {
 
 button {
   width: 50%;
-  background-color: var(--primary);
+  background: linear-gradient(to right, var(--primary), #d1b367);
   color: var(--color-text);
   padding: 0.625rem 0.9rem;
   border: none;
@@ -69,6 +71,7 @@ button {
   font-size: 14px;
   margin-block: 2rem;
   transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -117,6 +120,6 @@ option[value='easy']:nth-child(even):hover {
   }
 
   select {
-    margin-bottom: 6rem;
+    margin-bottom: 4.5rem;
   }
 }
