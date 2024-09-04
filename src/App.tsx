@@ -51,5 +51,13 @@ function App() {
       state.playerRed = new PlayerClass(playerRedInput.value, 'Red');
     }
 
-    
+        if (playAgainstYellowAiEasy.checked) {
+      state.playerYellow =
+        playAgainstYellowAiHard.value === 'easy'
+          ? new EasyAIClass('AI Yellow', 'Yellow')
+          : new HardAIClass('AI Yellow', 'Yellow');
+    } else {
+      state.playerYellow = new PlayerClass(playerYellowInput.value, 'Yellow');
+    }
+
 export default App;
