@@ -41,6 +41,23 @@ function App() {
     const playAgainstYellowAiEasy = form.elements[4] as HTMLInputElement;
     const playAgainstYellowAiHard = form.elements[5] as HTMLSelectElement;
 
+    const isNameValid = (name: string) => {
+      return name.trim() !== '' && isNaN(Number(name));
+    };
+
+    if (!playAgainstRedAiEasy.checked && !isNameValid(playerRedInput.value)) {
+      alert('Please enter a valid name for the Red player.');
+      return;
+    }
+
+    if (
+      !playAgainstYellowAiEasy.checked &&
+      !isNameValid(playerYellowInput.value)
+    ) {
+      alert('Please enter a valid name for the Yellow player.');
+      return;
+    }
+
     if (playAgainstRedAiEasy.checked) {
       state.playerRed =
         playAgainstRedAiHard.value === 'easy'
