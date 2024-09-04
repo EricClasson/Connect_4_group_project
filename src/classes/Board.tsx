@@ -12,6 +12,8 @@ export default class Board {
   winner: boolean | string;
   isDraw: boolean;
   gameOver: boolean | string;
+  moveCounterRed: number;
+  moveCounterYellow: number;
 
   constructor(stateUpdater: Function) {
     this.stateUpdater = stateUpdater;
@@ -22,20 +24,36 @@ export default class Board {
     this.winner = false;
     this.isDraw = false;
     this.gameOver = false;
+    this.moveCounterRed = 0;
+    this.moveCounterYellow = 0;
   }
 
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
     return (
       <div className="board-container">
-        <div className={`player-corner top-left ${this.currentPlayer === 'Red' ? 'highlight-red' : ''}`}>{playerRed?.name}</div>
-        <div className={`player-corner top-right ${this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''}`}>{playerYellow?.name}</div>
+        <div
+          className={`player-corner top-left ${
+            this.currentPlayer === 'Red' ? 'highlight-red' : ''
+          }`}
+        >
+          {playerRed?.name}
+        </div>
+        <div
+          className={`player-corner top-right ${
+            this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''
+          }`}
+        >
+          {playerYellow?.name}
+        </div>
         <div className="board">
           {this.matrix.map((row, rowIndex) => (
             <Fragment key={rowIndex}>
               {row.map((column, columnIndex) => (
                 <div
                   key={columnIndex}
-                  className={`column ${column} ${column === ' ' ? '' : column === 'Red' ? 'red' : 'yellow'}`}
+                  className={`column ${column} ${
+                    column === ' ' ? '' : column === 'Red' ? 'red' : 'yellow'
+                  }`}
                   onClick={() => this.makeMove(columnIndex)}
                 ></div>
               ))}
@@ -50,16 +68,23 @@ export default class Board {
     if (this.gameOver) return false;
     this.stateUpdater();
     if (this.makeMoveCheck.makeMoveCheck(column)) {
+      if (this.currentPlayer === 'Red') {
+        this.moveCounterRed++;
+      } else {
+        this.moveCounterYellow++;
+      }
       this.winner = this.winCheck.checkForWin();
       this.isDraw = this.draw();
       this.gameOver = this.winner || this.isDraw;
       this.currentPlayer = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
+      console.log('this is red' + this.moveCounterRed);
+      console.log('this is yellow ' + this.moveCounterYellow);
       return true;
     }
     return false;
   }
 
   draw(): boolean {
-    return this.matrix[0].every(cell => cell !== ' ');
+    return this.matrix[0].every((cell) => cell !== ' ');
   }
 }

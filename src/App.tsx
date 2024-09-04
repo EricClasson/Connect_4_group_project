@@ -8,6 +8,7 @@ function App() {
     board: new BoardClass(() => setState()),
     playerRed: null as PlayerClass | null,
     playerYellow: null as PlayerClass | null,
+    highScoreArray: [] as { name: string; moves: number }[],
   });
 
   const setState = (prop: string = '', value: any = '') => {
@@ -28,23 +29,37 @@ function App() {
     board.stateUpdater();
   }
 
+  // const highScore = ['red', state.board.moveCounterRed];
+
+  // localStorage.setItem('Players', JSON.stringify(highScore));
+
+  // const userData = JSON.parse(localStorage.getItem('Players'));
+  // console.log(userData);
+
   const CreatePlayer = () => {
     return (
       <form className="modal" onSubmit={registerName}>
         <h2>change player</h2>
         <div className="player-selection">
           <label>Red Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
+          <input
+            type="text"
+            name="playerRed"
+            placeholder="Namn på röd spelare"
+          />
         </div>
         <div className="player-selection">
           <label>Yellow Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
+          <input
+            type="text"
+            name="playerRed"
+            placeholder="Namn på röd spelare"
+          />
         </div>
         <button type="submit">Start Game</button>
       </form>
     );
   };
-
 
   const ViewWinner = () => {
     return (
@@ -99,7 +114,11 @@ function App() {
 
   return (
     <>
-      {!playerRed || !playerYellow ? <CreatePlayer /> : board.render(playerRed, playerYellow))}
+      {!playerRed || !playerYellow ? (
+        <CreatePlayer />
+      ) : (
+        board.render(playerRed, playerYellow)
+      )}
       {!board.gameOver ? (
         <div className="game-currentplayer"></div>
       ) : (
@@ -107,7 +126,6 @@ function App() {
       )}
     </>
   );
-
 }
 
 export default App;
