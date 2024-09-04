@@ -1,95 +1,95 @@
 :root {
-    --text: #131002;
-    --background: #fdfaee;
-    --primary: #e4ab1e;
-    --secondary: #88f1de;
-    --accent: #509dea;
-    --marker-red: #e41e1e;
-    --marker-yellow: #f1ed88;
+  --text: #131002;
+  --background: #fdfaee;
+  --primary: #e4ab1e;
+  --secondary: #88f1de;
+  --accent: #509dea;
+  --marker-red: #e41e1e;
+  --marker-yellow: #f1ed88;
 }
 
 .board {
-    aspect-ratio: 2;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.125rem;
-    background-color: var(--accent);
-    padding: 0.625rem;
-    border-radius: 0.625rem;
+  aspect-ratio: 2;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.125rem;
+  background-color: var(--accent);
+  padding: 0.625rem;
+  border-radius: 0.625rem;
 }
 
 .column {
-    position: relative;
-    width: 6.25rem;
-    height: 6.25rem;
-    background-color: var(--background);
-    border-radius: 50%;
-    overflow: hidden;
+  position: relative;
+  width: 6.25rem;
+  height: 6.25rem;
+  background-color: var(--background);
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .column::before {
-    content: '';
-    display: block;
-    padding-top: 100%;
-    border-radius: 50%;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  content: '';
+  display: block;
+  padding-top: 100%;
+  border-radius: 50%;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .marker {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 .red {
-    background-color: var(--marker-red);
+  background-color: var(--marker-red);
 }
 
 .yellow {
-    background-color: var(--marker-yellow);
+  background-color: var(--marker-yellow);
 }
 
 /* Added basic css for display, Dennis you are free to change styling */
 
 .player-corner {
-    position: absolute;
-    background-color: #fcfbfb;
-    color: black;
-    padding-inline: 2rem;
-    padding-block: 0.5rem;
-    min-width: 10rem;
-    min-height: 2rem;
-    text-align: center;
+  position: absolute;
+  background-color: #fcfbfb;
+  color: black;
+  padding-inline: 2rem;
+  padding-block: 0.5rem;
+  min-width: 10rem;
+  min-height: 2rem;
+  text-align: center;
 }
 
 .top-left {
-    top: 0;
-    left: 0;
+  top: 0;
+  left: 0;
 }
 
 .top-right {
-    top: 0;
-    right: 0;
+  top: 0;
+  right: 0;
 }
 
 .highlight-red {
-    background-color: red;
+  background-color: red;
 }
 
 .highlight-yellow {
-    background-color: yellow;
+  background-color: yellow;
 }
 .red-text {
   color: red;
