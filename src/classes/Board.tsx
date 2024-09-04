@@ -77,8 +77,7 @@ export default class Board {
       this.isDraw = this.draw();
       this.gameOver = this.winner || this.isDraw;
       this.currentPlayer = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
-      console.log('this is red' + this.moveCounterRed);
-      console.log('this is yellow ' + this.moveCounterYellow);
+
       return true;
     }
     return false;

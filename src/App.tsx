@@ -1,6 +1,6 @@
 import './App.css';
 import BoardClass from './classes/Board';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
 
 function App() {
@@ -8,7 +8,6 @@ function App() {
     board: new BoardClass(() => setState()),
     playerRed: null as PlayerClass | null,
     playerYellow: null as PlayerClass | null,
-    highScoreArray: [] as { name: string; moves: number }[],
   });
 
   const setState = (prop: string = '', value: any = '') => {
@@ -28,13 +27,6 @@ function App() {
     console.log(state.playerRed);
     board.stateUpdater();
   }
-
-  // const highScore = ['red', state.board.moveCounterRed];
-
-  // localStorage.setItem('Players', JSON.stringify(highScore));
-
-  // const userData = JSON.parse(localStorage.getItem('Players'));
-  // console.log(userData);
 
   const CreatePlayer = () => {
     return (
@@ -60,6 +52,33 @@ function App() {
       </form>
     );
   };
+
+  const highScore = (name: string, moves: number) => {
+    const highscores = JSON.parse(
+      localStorage.getItem('highscores') || '[]'
+    ) as { name: string; moves: number }[];
+
+    highscores.push({ name, moves });
+
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+  };
+
+  const [scoreUpdated, setScoreUpdated] = useState(false);
+
+  useEffect(() => {
+    if (board.gameOver && board.winner && !scoreUpdated) {
+      let winnerName =
+        state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+
+      let winnerMoves =
+        state.board.winner === 'Yellow'
+          ? board.moveCounterRed
+          : board.moveCounterYellow;
+      highScore(winnerName, winnerMoves);
+
+      setScoreUpdated(true);
+    }
+  }, [board.gameOver, board.winner, scoreUpdated]);
 
   const ViewWinner = () => {
     return (
