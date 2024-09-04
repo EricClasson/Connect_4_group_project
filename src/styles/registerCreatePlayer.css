@@ -24,3 +24,29 @@ body {
   font-size: 34px;
   margin-block: 1rem;
 }
+
+.player-selection {
+  margin-bottom: 1rem;
+}
+
+.player-selection label {
+  display: block;
+  font-size: 18px;
+  color: var(--color-text);
+  font-weight: 600;
+  margin-bottom: 1.31rem;
+}
+
+.player-selection input[type='text'] {
+  width: 100%;
+  padding: 0.625rem;
+  border: 1px solid #ccc;
+  border-radius: var(--borderRadius-reg);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+label input[type='checkbox'] {
+  margin-right: 0.625rem;
+  margin-block: 1rem;
+}
