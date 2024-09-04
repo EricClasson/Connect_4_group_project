@@ -28,7 +28,7 @@
 }
 
 .column::before {
-    content: "";
+    content: '';
     display: block;
     padding-top: 100%;
     border-radius: 50%;
@@ -59,4 +59,35 @@
 
 .yellow {
     background-color: var(--marker-yellow);
+}
+
+/* Added basic css for display, Dennis you are free to change styling */
+
+.player-corner {
+    position: absolute;
+    background-color: #fcfbfb;
+    color: black;
+    padding-inline: 2rem;
+    padding-block: 0.5rem;
+    min-width: 10rem;
+    min-height: 2rem;
+    text-align: center;
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+}
+
+.highlight-red {
+    background-color: red;
+}
+
+.highlight-yellow {
+    background-color: yellow;
 }
