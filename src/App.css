@@ -1,11 +1,12 @@
 :root {
-  --text: #131002;
+  --borderRadius-reg: 0.25rem;
   --background: #fdfaee;
   --primary: #e4ab1e;
   --secondary: #88f1de;
   --accent: #509dea;
   --marker-red: #e41e1e;
   --marker-yellow: #f1ed88;
+  --color-text: #131002;
 }
 
 .board {
