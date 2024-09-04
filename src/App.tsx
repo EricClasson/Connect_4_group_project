@@ -41,8 +41,7 @@ function App() {
     const playAgainstYellowAiEasy = form.elements[4] as HTMLInputElement;
     const playAgainstYellowAiHard = form.elements[5] as HTMLSelectElement;
 
-
-        if (playAgainstRedAiEasy.checked) {
+    if (playAgainstRedAiEasy.checked) {
       state.playerRed =
         playAgainstRedAiHard.value === 'easy'
           ? new EasyAIClass('AI Red', 'Red')
@@ -51,7 +50,7 @@ function App() {
       state.playerRed = new PlayerClass(playerRedInput.value, 'Red');
     }
 
-        if (playAgainstYellowAiEasy.checked) {
+    if (playAgainstYellowAiEasy.checked) {
       state.playerYellow =
         playAgainstYellowAiHard.value === 'easy'
           ? new EasyAIClass('AI Yellow', 'Yellow')
@@ -59,5 +58,54 @@ function App() {
     } else {
       state.playerYellow = new PlayerClass(playerYellowInput.value, 'Yellow');
     }
+
+    console.log(state.playerYellow);
+    console.log(state.playerRed);
+    board.stateUpdater();
+  }
+
+  const CreatePlayer = () => {
+    return (
+      <form className="modal" onSubmit={registerName}>
+        <h2>Change player</h2>
+        <div className="player-selection">
+          <label>Red Player</label>
+          <input
+            type="text"
+            name="playerRed"
+            placeholder="Namn på röd spelare"
+          />
+        </div>
+        <label>
+          <input type="checkbox" name="playAgainstRedAi" /> Play against AI
+        </label>
+        <select name="difficultyRedAi">
+          <option value="easy">Easy</option>
+          <option value="hard">Hard</option>
+        </select>
+        <div className="player-selection">
+          <label>Yellow Player</label>
+          <input
+            type="text"
+            name="playerYellow"
+            placeholder="Namn på gul spelare"
+          />
+        </div>
+        <label>
+          <input type="checkbox" name="playAgainstYellowAi" /> Play against AI
+        </label>
+        <select name="difficultyYellowAi">
+          <option value="easy">Easy</option>
+          <option value="hard">Hard</option>
+        </select>
+        <section className="center-button">
+          <button type="submit">Start Game</button>
+        </section>
+      </form>
+    );
+  };
+
+  return <>{!playerRed || !playerYellow ? <CreatePlayer /> : board.render()}</>;
+}
 
 export default App;
