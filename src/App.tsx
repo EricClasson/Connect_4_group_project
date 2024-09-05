@@ -2,7 +2,7 @@ import './App.css';
 import './styles/registerCreatePlayer.css';
 
 import BoardClass from './classes/Board';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
 
 class EasyAIClass extends PlayerClass {
@@ -18,6 +18,7 @@ class HardAIClass extends PlayerClass {
 }
 
 function App() {
+  const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
     board: new BoardClass(() => setState()),
     playerRed: null as PlayerClass | null,
@@ -29,6 +30,19 @@ function App() {
   };
 
   const { board, playerRed, playerYellow } = state;
+
+  useEffect(() => {
+    if (
+      playerYellow?.isAI &&
+      board.currentPlayer === 'Yellow' &&
+      !board.gameOver
+    ) {
+      setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
+    }
+    if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
+      setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
+    }
+  }, [setState]);
 
   function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -121,8 +135,84 @@ function App() {
       </form>
     );
   };
+  const handleResetGame = () => {
+    board.resetBoard();
+  };
 
-  return <>{!playerRed || !playerYellow ? <CreatePlayer /> : board.render()}</>;
+  const handleNewGame = () => {
+    setState('board', new BoardClass(() => setState()));
+    setState('playerRed', null);
+    setState('playerYellow', null);
+    window.location.reload();
+  };
+  const ViewWinner = () => {
+    return (
+      <div className="gameover-info">
+        {board.winner ? (
+          <>
+            <h2>The winner is</h2>
+
+            <div className="winner-display">
+              {' '}
+              <h3
+                className={
+                  state.board.winner === ''
+                    ? ''
+                    : state.board.winner === 'Red'
+                    ? 'red-text'
+                    : 'yellow-text'
+                }
+              >
+                {' '}
+                ({state.board.winner})
+              </h3>
+              <h3
+                className={
+                  state.board.winner === ''
+                    ? ''
+                    : state.board.winner === 'Red'
+                    ? 'red-text'
+                    : 'yellow-text'
+                }
+              >
+                {state.board.winner === 'Red'
+                  ? playerRed!.name
+                  : playerYellow!.name}
+              </h3>
+            </div>
+          </>
+        ) : (
+          <>
+            {' '}
+            <h2>It's a tie.</h2>
+          </>
+        )}
+        <div className="gameover-btn">
+          <button className="reset-btn" onClick={handleResetGame}>
+            Reset Game
+          </button>
+          <button className="reset-btn" onClick={handleNewGame}>
+            New Game
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      {!playerRed || !playerYellow ? (
+        <CreatePlayer />
+      ) : (
+        board.render(playerRed, playerYellow)
+      )}
+      {!board.gameOver ? (
+        <div className="game-currentplayer"></div>
+      ) : (
+        <ViewWinner />
+      )}
+    </>
+  );
 }
 
 export default App;

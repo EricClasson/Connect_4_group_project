@@ -6,8 +6,7 @@ export default class WinCheck {
     this.board = board;
   }
 
-  checkForWin(): boolean | string {
-    const playerToCheck = this.board.currentPlayer;
+  checkForWin(playerToCheck: string): boolean | string {
     const streakLength = 4;
     const offsets = [
       [
@@ -41,7 +40,12 @@ export default class WinCheck {
         for (const winType of offsets) {
           let colorsInCombo = '';
           for (const [ro, co] of winType) {
-            if (r + ro >= 0 && r + ro < this.board.matrix.length && c + co >= 0 && c + co < this.board.matrix[0].length) {
+            if (
+              r + ro >= 0 &&
+              r + ro < this.board.matrix.length &&
+              c + co >= 0 &&
+              c + co < this.board.matrix[0].length
+            ) {
               colorsInCombo += this.board.matrix[r + ro][c + co];
             } else {
               colorsInCombo += ' ';

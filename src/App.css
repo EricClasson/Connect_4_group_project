@@ -1,5 +1,6 @@
 :root {
   --borderRadius-reg: 0.25rem;
+  --text: #131002;
   --background: #fdfaee;
   --primary: #e4ab1e;
   --secondary: #88f1de;
@@ -126,4 +127,21 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+.reset-btn {
+  height: 2rem;
+  border-radius: 1rem;
+}
+.newGame-btn {
+  height: 2rem;
+  border-radius: 1rem;
+}
+.reset-btn:hover {
+  background-color: var(--background);
+  border: 5px solid var(--text);
+}
+
+.newGame-btn:hover {
+  background-color: var(--background);
+  border: 5px solid var(--text);
 }

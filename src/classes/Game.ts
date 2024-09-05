@@ -18,11 +18,15 @@ export default class Game {
     console.clear();
     console.log('Välkommen till FYRA-I-RAD!\n');
 
-    const isRedAI = getPrompt('Ska spelare Röd vara AI? (ja/nej): ').toLowerCase() === 'ja';
-    const isYellowAI = getPrompt('Ska spelare Gul vara AI? (ja/nej): ').toLowerCase() === 'ja';
+    const isRedAI =
+      getPrompt('Ska spelare Röd vara AI? (ja/nej): ').toLowerCase() === 'ja';
+    const isYellowAI =
+      getPrompt('Ska spelare Gul vara AI? (ja/nej): ').toLowerCase() === 'ja';
 
     const nameRed = isRedAI ? 'AI-Röd' : getPrompt('Spelare Röd:s namn: ');
-    const nameYellow = isYellowAI ? 'AI-Gul' : getPrompt('Spelare Gul:s namn: ');
+    const nameYellow = isYellowAI
+      ? 'AI-Gul'
+      : getPrompt('Spelare Gul:s namn: ');
 
     this.players = {
       Red: new Player(nameRed, 'Red', isRedAI),
