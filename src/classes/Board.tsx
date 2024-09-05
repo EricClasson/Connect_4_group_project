@@ -4,26 +4,37 @@ import { Fragment } from 'react';
 import PlayerClass from './Player.js';
 
 export default class Board {
-  matrix: string[][];
-  currentPlayer: string;
-  winCheck: WinCheck;
-  makeMoveCheck: MakeMoveCheck;
-  stateUpdater: Function;
-  winner: boolean | string;
-  isDraw: boolean;
-  gameOver: boolean | string;
+    matrix: string[][];
+    currentPlayer: string;
+    winCheck: WinCheck;
+    makeMoveCheck: MakeMoveCheck;
+    stateUpdater: Function;
+    winner: boolean | string;
+    isDraw: boolean;
+    gameOver: boolean | string;
 
-  constructor(stateUpdater: Function) {
-    this.stateUpdater = stateUpdater;
-    this.matrix = [...new Array(6)].map(() => [...new Array(7)].map(() => ' '));
-    this.currentPlayer = 'Red';
-    this.winCheck = new WinCheck(this);
-    this.makeMoveCheck = new MakeMoveCheck(this);
-    this.winner = false;
-    this.isDraw = false;
-    this.gameOver = false;
-  }
+    constructor(stateUpdater: Function) {
+        this.stateUpdater = stateUpdater;
+        this.matrix = [...new Array(6)].map(() => [...new Array(7)].map(() => ' '));
+        this.currentPlayer = 'Red';
+        this.winCheck = new WinCheck(this);
+        this.makeMoveCheck = new MakeMoveCheck(this);
+        this.winner = false;
+        this.isDraw = false;
+        this.gameOver = false;
+    }
 
+        
+  resetBoard() {
+        this.matrix = [...new Array(6)].map(() => [...new Array(7)].map(() => ' '));
+        this.currentPlayer = 'Red';
+        this.winner = false;
+        this.isDraw = false;
+        this.gameOver = false;
+        this.stateUpdater();
+   }
+        
+        
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
     return (
       <div className="board-container">
@@ -62,4 +73,5 @@ export default class Board {
   draw(): boolean {
     return this.matrix[0].every(cell => cell !== ' ');
   }
+
 }

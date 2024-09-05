@@ -92,37 +92,54 @@
     background-color: yellow;
 }
 .red-text {
-  color: red;
+    color: red;
 }
 
 .yellow-text {
-  color: yellow;
+    color: yellow;
 }
 
 .gameover-info {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #509dea;
-  padding: 4rem;
-  border-radius: 15px;
-  font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #509dea;
+    padding: 4rem;
+    border-radius: 15px;
+    font-size: 2rem;
 }
 
 .winner-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
 }
 .gameover-btn {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.reset-btn {
+    height: 2rem;
+    border-radius: 1rem;
+}
+.newGame-btn {
+    height: 2rem;
+    border-radius: 1rem;
+}
+.reset-btn:hover {
+    background-color: var(--background);
+    border: 5px solid var(--text);
+}
+
+.newGame-btn:hover {
+    background-color: var(--background);
+    border: 5px solid var(--text);
 }

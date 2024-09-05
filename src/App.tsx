@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
 
 function App() {
+
   const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
     board: new BoardClass(() => setState()),
@@ -11,11 +12,11 @@ function App() {
     playerYellow: null as PlayerClass | null,
   });
 
-  const setState = (prop: string = '', value: any = '') => {
-    _setState({ ...state, [prop]: value });
-  };
+    const setState = (prop: string = '', value: any = '') => {
+        _setState({ ...state, [prop]: value });
+    };
 
-  const { board, playerRed, playerYellow } = state;
+    const { board, playerRed, playerYellow } = state;
 
   useEffect(() => {
     if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
@@ -38,72 +39,75 @@ function App() {
     board.stateUpdater();
   }
 
-  const CreatePlayer = () => {
-    return (
-      <form className="modal" onSubmit={registerName}>
-        <h2>change player</h2>
-        <div className="player-selection">
-          <label>Red Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
-        </div>
-        <div className="player-selection">
-          <label>Yellow Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
-        </div>
-        <button type="submit">Start Game</button>
-      </form>
-    );
-  };
+    const CreatePlayer = () => {
+        return (
+            <form
+                className='modal'
+                onSubmit={registerName}
+            >
+                <h2>change player</h2>
+                <div className='player-selection'>
+                    <label>Red Player</label>
+                    <input
+                        type='text'
+                        name='playerRed'
+                        placeholder='Namn på röd spelare'
+                    />
+                </div>
+                <div className='player-selection'>
+                    <label>Yellow Player</label>
+                    <input
+                        type='text'
+                        name='playerRed'
+                        placeholder='Namn på röd spelare'
+                    />
+                </div>
+                <button type='submit'>Start Game</button>
+            </form>
+        );
+    };
+    const handleResetGame = () => {
+        board.resetBoard();
+    };
 
-  const ViewWinner = () => {
-    return (
-      <div className="gameover-info">
-        {board.winner ? (
-          <>
-            <h2>The winner is</h2>
+    const handleNewGame = () => {
+        setState('board', new BoardClass(() => setState()));
+        setState('playerRed', null);
+        setState('playerYellow', null);
+        window.location.reload();
+    };
+    const ViewWinner = () => {
+        return (
+            <div className='gameover-info'>
+                {board.winner ? (
+                    <>
+                        <h2>The winner is</h2>
 
-            <div className="winner-display">
-              {' '}
-              <h3
-                className={
-                  state.board.winner === ''
-                    ? ''
-                    : state.board.winner === 'Red'
-                    ? 'red-text'
-                    : 'yellow-text'
-                }
-              >
-                {' '}
-                ({state.board.winner})
-              </h3>
-              <h3
-                className={
-                  state.board.winner === ''
-                    ? ''
-                    : state.board.winner === 'Red'
-                    ? 'red-text'
-                    : 'yellow-text'
-                }
-              >
-                {state.board.winner === 'Red'
-                  ? playerRed!.name
-                  : playerYellow!.name}
-              </h3>
-            </div>
-          </>
-        ) : (
-          <>
-            {' '}
-            <h2>It's a tie.</h2>
-          </>
-        )}
-        <div className="gameover-btn">
-          <button>Reset Game</button>
+                        <div className='winner-display'>
+                            {' '}
+                            <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
+                                {' '}
+                                ({state.board.winner})
+                            </h3>
+                            <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
+                                {state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name}
+                            </h3>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        {' '}
+                        <h2>It's a tie.</h2>
+                    </>
+                )}
+                <div className='gameover-btn'>
+                    <button
+                        className='reset-btn'
+                        onClick={handleResetGame}
+                    >
+                        Reset Game
+                    </button>
 
-          <button>New game</button>
-        </div>
-      </div>
-    );
   };
 
   return (
