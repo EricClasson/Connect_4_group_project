@@ -1,9 +1,10 @@
 import './App.css';
 import BoardClass from './classes/Board';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
 
 function App() {
+  const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
     board: new BoardClass(() => setState()),
     playerRed: null as PlayerClass | null,
@@ -15,6 +16,15 @@ function App() {
   };
 
   const { board, playerRed, playerYellow } = state;
+
+  useEffect(() => {
+    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
+      setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
+    }
+    if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
+      setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
+    }
+  }, [setState]);
 
   function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,19 +44,11 @@ function App() {
         <h2>change player</h2>
         <div className="player-selection">
           <label>Red Player</label>
-          <input
-            type="text"
-            name="playerRed"
-            placeholder="Namn på röd spelare"
-          />
+          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
         </div>
         <div className="player-selection">
           <label>Yellow Player</label>
-          <input
-            type="text"
-            name="playerRed"
-            placeholder="Namn på röd spelare"
-          />
+          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
         </div>
         <button type="submit">Start Game</button>
       </form>

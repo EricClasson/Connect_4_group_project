@@ -6,8 +6,7 @@ export default class WinCheck {
     this.board = board;
   }
 
-  checkForWin(): boolean | string {
-    const playerToCheck = this.board.currentPlayer;
+  checkForWin(playerToCheck: string): boolean | string {
     const streakLength = 4;
     const offsets = [
       [
