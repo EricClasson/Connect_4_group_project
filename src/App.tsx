@@ -34,17 +34,24 @@ function App() {
         <h2>change player</h2>
         <div className="player-selection">
           <label>Red Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
+          <input
+            type="text"
+            name="playerRed"
+            placeholder="Namn på röd spelare"
+          />
         </div>
         <div className="player-selection">
           <label>Yellow Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
+          <input
+            type="text"
+            name="playerRed"
+            placeholder="Namn på röd spelare"
+          />
         </div>
         <button type="submit">Start Game</button>
       </form>
     );
   };
-
 
   const ViewWinner = () => {
     return (
@@ -99,7 +106,11 @@ function App() {
 
   return (
     <>
-      {!playerRed || !playerYellow ? <CreatePlayer /> : board.render(playerRed, playerYellow))}
+      {!playerRed || !playerYellow ? (
+        <CreatePlayer />
+      ) : (
+        board.render(playerRed, playerYellow)
+      )}
       {!board.gameOver ? (
         <div className="game-currentplayer"></div>
       ) : (
@@ -107,7 +118,6 @@ function App() {
       )}
     </>
   );
-
 }
 
 export default App;
