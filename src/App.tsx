@@ -1,14 +1,16 @@
 import './App.css';
 import BoardClass from './classes/Board';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
 
 function App() {
-    const [state, _setState] = useState({
-        board: new BoardClass(() => setState()),
-        playerRed: null as PlayerClass | null,
-        playerYellow: null as PlayerClass | null,
-    });
+
+  const COMPUTER_DELAY = 1000;
+  const [state, _setState] = useState({
+    board: new BoardClass(() => setState()),
+    playerRed: null as PlayerClass | null,
+    playerYellow: null as PlayerClass | null,
+  });
 
     const setState = (prop: string = '', value: any = '') => {
         _setState({ ...state, [prop]: value });
@@ -16,17 +18,26 @@ function App() {
 
     const { board, playerRed, playerYellow } = state;
 
-    function registerName(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        const form = event.target as HTMLFormElement;
-        const playerRed = form.elements[0] as HTMLInputElement;
-        const playerYellow = form.elements[1] as HTMLInputElement;
-        state.playerRed = new PlayerClass(playerRed.value, 'Red');
-        state.playerYellow = new PlayerClass(playerYellow.value, 'Yellow');
-        console.log(state.playerYellow);
-        console.log(state.playerRed);
-        board.stateUpdater();
+  useEffect(() => {
+    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
+      setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
     }
+    if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
+      setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
+    }
+  }, [setState]);
+
+  function registerName(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const playerRed = form.elements[0] as HTMLInputElement;
+    const playerYellow = form.elements[1] as HTMLInputElement;
+    state.playerRed = new PlayerClass(playerRed.value, 'Red');
+    state.playerYellow = new PlayerClass(playerYellow.value, 'Yellow');
+    console.log(state.playerYellow);
+    console.log(state.playerRed);
+    board.stateUpdater();
+  }
 
     const CreatePlayer = () => {
         return (
@@ -97,23 +108,22 @@ function App() {
                         Reset Game
                     </button>
 
-                    <button
-                        className='newGame-btn'
-                        onClick={handleNewGame}
-                    >
-                        New game
-                    </button>
-                </div>
-            </div>
-        );
-    };
+  };
 
-    return (
-        <>
-            {!playerRed || !playerYellow ? <CreatePlayer /> : board.render(playerRed, playerYellow)}
-            {!board.gameOver ? <div className='game-currentplayer'></div> : <ViewWinner />}
-        </>
-    );
+  return (
+    <>
+      {!playerRed || !playerYellow ? (
+        <CreatePlayer />
+      ) : (
+        board.render(playerRed, playerYellow)
+      )}
+      {!board.gameOver ? (
+        <div className="game-currentplayer"></div>
+      ) : (
+        <ViewWinner />
+      )}
+    </>
+  );
 }
 
 export default App;
