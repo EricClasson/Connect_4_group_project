@@ -1,6 +1,7 @@
 import WinCheck from './WinCheck.js';
 import MakeMoveCheck from './MakeMoveCheck.js';
 import { Fragment } from 'react';
+import PlayerClass from './Player.js';
 
 export default class Board {
   matrix: string[][];
@@ -23,16 +24,24 @@ export default class Board {
     this.gameOver = false;
   }
 
-  render() {
+  render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
     return (
-      <div className="board">
-        {this.matrix.map((row, rowIndex) => (
-          <Fragment key={rowIndex}>
-            {row.map((column, columnIndex) => (
-              <div key={columnIndex} className={`column ${column.toLowerCase()}`} onClick={() => this.makeMove(columnIndex)}></div>
-            ))}
-          </Fragment>
-        ))}
+      <div className="board-container">
+        <div className={`player-corner top-left ${this.currentPlayer === 'Red' ? 'highlight-red' : ''}`}>{playerRed?.name}</div>
+        <div className={`player-corner top-right ${this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''}`}>{playerYellow?.name}</div>
+        <div className="board">
+          {this.matrix.map((row, rowIndex) => (
+            <Fragment key={rowIndex}>
+              {row.map((column, columnIndex) => (
+                <div
+                  key={columnIndex}
+                  className={`column ${column.toLowerCase()}`}
+                  onClick={() => this.makeMove(columnIndex)}
+                ></div>
+              ))}
+            </Fragment>
+          ))}
+        </div>
       </div>
     );
   }
@@ -51,6 +60,6 @@ export default class Board {
   }
   
   draw(): boolean {
-    return this.matrix[0].every((cell) => cell !== ' ');
+    return this.matrix[0].every(cell => cell !== ' ');
   }
 }

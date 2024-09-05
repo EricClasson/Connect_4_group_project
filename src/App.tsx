@@ -55,7 +55,71 @@ function App() {
     );
   };
 
-  return <>{!playerRed || !playerYellow ? <CreatePlayer /> : board.render()}</>;
+  const ViewWinner = () => {
+    return (
+      <div className="gameover-info">
+        {board.winner ? (
+          <>
+            <h2>The winner is</h2>
+
+            <div className="winner-display">
+              {' '}
+              <h3
+                className={
+                  state.board.winner === ''
+                    ? ''
+                    : state.board.winner === 'Red'
+                    ? 'red-text'
+                    : 'yellow-text'
+                }
+              >
+                {' '}
+                ({state.board.winner})
+              </h3>
+              <h3
+                className={
+                  state.board.winner === ''
+                    ? ''
+                    : state.board.winner === 'Red'
+                    ? 'red-text'
+                    : 'yellow-text'
+                }
+              >
+                {state.board.winner === 'Red'
+                  ? playerRed!.name
+                  : playerYellow!.name}
+              </h3>
+            </div>
+          </>
+        ) : (
+          <>
+            {' '}
+            <h2>It's a tie.</h2>
+          </>
+        )}
+        <div className="gameover-btn">
+          <button>Reset Game</button>
+
+          <button>New game</button>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      {!playerRed || !playerYellow ? (
+        <CreatePlayer />
+      ) : (
+        board.render(playerRed, playerYellow)
+      )}
+      {!board.gameOver ? (
+        <div className="game-currentplayer"></div>
+      ) : (
+        <ViewWinner />
+      )}
+    </>
+  );
 }
 
 export default App;
