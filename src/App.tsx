@@ -4,6 +4,7 @@ import './styles/registerCreatePlayer.css';
 import BoardClass from './classes/Board';
 import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
+import { Fragment } from 'react';
 
 function App() {
   const COMPUTER_DELAY = 1000;
@@ -18,6 +19,15 @@ function App() {
   };
 
   const { board, playerRed, playerYellow } = state;
+  
+  useEffect(() => {
+    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
+      setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
+    }
+    if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
+      setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
+    }
+  }, [setState]);
 
   function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -78,6 +88,7 @@ function App() {
 
   const CreatePlayer = () => {
     return (
+     <>
       <form className="modal" onSubmit={registerName}>
         <h2>Connect Four</h2>
         <div className="player-selection player-red">
@@ -120,8 +131,57 @@ function App() {
           Start Game
         </button>
       </form>
+      <ViewHighScoreList />
+     </>
+    
+  const highScore = (name: string, moves: number) => {
+    const highscores = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
+
+    highscores.push({ name, moves });
+    highscores.sort((a, b) => a.moves - b.moves).slice(0, 10);
+
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+  };
+
+  const [scoreUpdated, setScoreUpdated] = useState(false);
+
+  useEffect(() => {
+    if (board.gameOver && board.winner && !scoreUpdated) {
+      let winnerName = state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+
+      let winnerMoves = state.board.winner === 'Yellow' ? board.moveCounterRed : board.moveCounterYellow;
+      highScore(winnerName, winnerMoves);
+
+      setScoreUpdated(true);
+    }
+  }, [board.gameOver, board.winner, scoreUpdated]);
+
+  const ViewHighScoreList = () => {
+    const highscoresData = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
+    const sortedHighscores = highscoresData.sort((a, b) => a.moves - b.moves).slice(0, 10);
+    return (
+      <div className="highscore-list">
+        <h3>Highscore List</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name of Player</th>
+              <th>Amount of Moves</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedHighscores.map((list, index) => (
+              <tr key={index}>
+                <td>{list.name}</td>
+                <td className=" highscore-moves">{list.moves}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   };
+
   const handleResetGame = () => {
     board.resetBoard();
   };
