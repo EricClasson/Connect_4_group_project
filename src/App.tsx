@@ -32,29 +32,16 @@ function App() {
       return name.trim() !== '' && isNaN(Number(name));
     };
 
-    // if (!playAgainstRedAiEasy.checked && !isNameValid(playerRedName.value)) {
-    //   alert('Please enter a valid name for the Red player.');
-    //   return;
-    // }
+    if (!isNameValid(playerRedName.value)) {
+      alert('Please enter a valid name for the Red player.');
+      return;
+    }
 
-    // if (!playAgainstYellowAiEasy.checked && !isNameValid(playerYellowName.value)) {
-    //   alert('Please enter a valid name for the Yellow player.');
-    //   return;
-    // }
+    if (!isNameValid(playerYellowName.value)) {
+      alert('Please enter a valid name for the Yellow player.');
+      return;
+    }
 
-    // if (playAgainstRedAiEasy.checked) {
-    //   state.playerRed = playAgainstRedAiHard.value === 'easy' ? new EasyAIClass('AI Red', 'Red') : new HardAIClass('AI Red', 'Red');
-    // } else {
-    //   state.playerRed = new PlayerClass(playerRedInput.value, 'Red');
-    // }
-
-    // if (playAgainstYellowAiEasy.checked) {
-    //   state.playerYellow =
-    //     playAgainstYellowAiHard.value === 'easy' ? new EasyAIClass('AI Yellow', 'Yellow') : new HardAIClass('AI Yellow', 'Yellow');
-    // } else {
-    //   state.playerYellow = new PlayerClass(playerYellowInput.value, 'Yellow');
-    // }
-    console.log(playerRedOption.value);
     switch (playerRedOption.value) {
       case 'human':
         state.playerRed = new PlayerClass(playerRedName.value, 'Red', false, false);
@@ -77,10 +64,9 @@ function App() {
         state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, true);
         break;
     }
-    console.log(state.playerRed);
-    console.log(state.playerYellow);
     board.stateUpdater();
   }
+
   useEffect(() => {
     if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
       setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
