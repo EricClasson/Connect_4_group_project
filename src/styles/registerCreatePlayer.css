@@ -84,6 +84,7 @@ body {
     background-color: var(--primary);
     font-weight: 500;
     transition: transfrom 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    cursor: pointer;
 }
 .btn:hover {
     background-color: var(--accent);
