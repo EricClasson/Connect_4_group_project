@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# Connect Four - Group Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project overview
 
-Currently, two official plugins are available:
+This project is a collaborative effort by our agile team to create a Four in a Row (Connect Four) game using Vite, TypeScript, and React. The application allows players to compete in a classic grid-based game where the objective is to connect four discs in a row, either vertically, horizontally, or diagonally.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Game key
 
-## Expanding the ESLint configuration
+- Game Modes: Players can choose from several game modes:
+  - Two human players
+  - Human vs. Computer (with multiple AI difficulty levels)
+  - Computer vs. Computer (AI vs. AI)
+- AI Difficulty: The game includes both a simple AI and a more advanced AI for challenging gameplay.
+- Player Selection: Users can set player names, choose the type of player, and decide who will start the game.
+- New Game Options: After each game, players can start a new game while retaining or resetting their previous settings.
+- Responsive Design: The game adapts seamlessly to different screen sizes, from desktop to mobile, ensuring a smooth user experience on all devices.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech stack
 
-- Configure the top-level `parserOptions` property like this:
+- React
+- TypeScript
+- CSS
+- Vite
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Branches
+
+- Develop
+- feature-map-game-startup -- Everyone
+- feature-board-render -- Everyone
+- feature-make-move -- Eric, Alvin & Pontus
+- feature-classes-update -- Eric & alvin
+- feature-refactor-wincheck -- Pontus
+- feature-create-player-inApp -- Kalle
+- feature-display-player -- Alvin
+- feature-board-styling -- Dennis
+- feature-display-who-won -- Eric
+- feature-smarter-ai -- Pontus
+- feature-play-again -- Dennis & kalle
+- feature-highscore-list -- Eric & Alvin
+- feature-highscore-list -- Eric
+- feature-create-player-reg -- Kalle
+
+## Project done by
+
+- Pontus Boman
+- Alvin Samulesson
+- Eric Classon
+- Dennis Enhwall
+- Kalle Pettersson
+
+## Install Project
+
+```
+Clone Repo https://github.com/EricClasson/Connect_4_group_project.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+```
+ npm install
+```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```
+ npm run dev
 ```
