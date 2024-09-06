@@ -31,19 +31,6 @@
   border-radius: 50%;
 }
 
-.column::before {
-  content: '';
-  display: block;
-  padding-top: 100%;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 .marker {
   width: 5rem;
   height: 5rem;
@@ -69,6 +56,8 @@
 
 .player-corner {
   --_marker-color: var(--marker-red, red);
+  display: grid;
+  place-content: center;
   background-color: #fcfbfb;
   color: black;
   padding-inline: 2rem;
@@ -76,7 +65,6 @@
   width: 100%;
   max-width: 5rem;
   min-height: 2rem;
-  text-align: center;
   outline: 3px solid var(--_marker-color);
 }
 
@@ -123,14 +111,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
+  min-width: max-content;
+  display: grid;
+  gap: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #509dea;
-  padding: 4rem;
+  padding: clamp(1rem, 10vw, 4rem);
   border-radius: 15px;
   font-size: 2rem;
+}
+.gameover-info h2 {
+  font-size: clamp(1.25rem, 10vw, 2.5rem);
 }
 
 .gameover-info h2,
@@ -189,4 +182,8 @@
 }
 .btn:active {
   transform: scaleX(0.98) scaleY(0.98);
+}
+
+.gameover-info > .btn:hover {
+  background-color: var(--background);
 }
