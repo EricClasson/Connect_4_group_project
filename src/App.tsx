@@ -4,6 +4,7 @@ import './styles/registerCreatePlayer.css';
 import BoardClass from './classes/Board';
 import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
+import { Fragment } from 'react';
 
 class EasyAIClass extends PlayerClass {
   constructor(name: string, color: string) {
@@ -135,10 +136,60 @@ function App() {
       </form>
     );
   };
+  
+
+
+  const highScore = (name: string, moves: number) => {
+    const highscores = JSON.parse(
+      localStorage.getItem('highscores') || '[]'
+    ) as { name: string; moves: number }[];
+
+    highscores.push({ name, moves });
+    highscores.sort((a, b) => a.moves - b.moves);
+
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+  };
+
+  const [scoreUpdated, setScoreUpdated] = useState(false);
+
+  useEffect(() => {
+    if (board.gameOver && board.winner && !scoreUpdated) {
+      let winnerName =
+        state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+
+      let winnerMoves =
+        state.board.winner === 'Yellow'
+          ? board.moveCounterRed
+          : board.moveCounterYellow;
+      highScore(winnerName, winnerMoves);
+
+      setScoreUpdated(true);
+    }
+  }, [board.gameOver, board.winner, scoreUpdated]);
+
+  const ViewHighScoreList = () => {
+    const highscoresData = JSON.parse(
+      localStorage.getItem('highscores') || '[]'
+    ) as { name: string; moves: number }[];
+
+    return (
+      <ul className="highscore-list">
+        <h3>Highscorelist</h3>
+        {highscoresData.map((list, index) => (
+          <li key={index}>
+            <p>Name on player: {list.name}</p>
+            <p>Amount moves for win: {list.moves}</p>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+      
   const handleResetGame = () => {
     board.resetBoard();
   };
-
+      
   const handleNewGame = () => {
     setState('board', new BoardClass(() => setState()));
     setState('playerRed', null);
@@ -206,6 +257,7 @@ function App() {
       ) : (
         board.render(playerRed, playerYellow)
       )}
+      <ViewHighScoreList />
       {!board.gameOver ? (
         <div className="game-currentplayer"></div>
       ) : (

@@ -12,6 +12,8 @@ export default class Board {
   winner: boolean | string;
   isDraw: boolean;
   gameOver: boolean | string;
+  moveCounterRed: number;
+  moveCounterYellow: number;
 
   constructor(stateUpdater: Function) {
     this.stateUpdater = stateUpdater;
@@ -22,6 +24,8 @@ export default class Board {
     this.winner = false;
     this.isDraw = false;
     this.gameOver = false;
+    this.moveCounterRed = 1;
+    this.moveCounterYellow = 1;
   }
 
   resetBoard() {
@@ -71,10 +75,16 @@ export default class Board {
     if (this.gameOver) return false;
     this.stateUpdater();
     if (this.makeMoveCheck.makeMoveCheck(column)) {
+      if (this.currentPlayer === 'Red') {
+        this.moveCounterRed++;
+      } else {
+        this.moveCounterYellow++;
+      }
       this.winner = this.winCheck.checkForWin(this.currentPlayer);
       this.isDraw = this.draw();
       this.gameOver = this.winner || this.isDraw;
       this.currentPlayer = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
+
       return true;
     }
     return false;

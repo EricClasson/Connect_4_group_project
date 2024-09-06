@@ -7,7 +7,7 @@
   --accent: #509dea;
   --marker-red: #e41e1e;
   --marker-yellow: #f1ed88;
-  --color-text: #131002;
+
 }
 
 .board {
@@ -128,6 +128,10 @@
   flex-direction: row;
   gap: 1rem;
 }
+
+.highscore-list {
+  background-color: #509dea;
+
 .reset-btn {
   height: 2rem;
   border-radius: 1rem;
@@ -144,4 +148,5 @@
 .newGame-btn:hover {
   background-color: var(--background);
   border: 5px solid var(--text);
+
 }
