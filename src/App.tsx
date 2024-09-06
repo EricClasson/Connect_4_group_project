@@ -33,11 +33,7 @@ function App() {
   const { board, playerRed, playerYellow } = state;
 
   useEffect(() => {
-    if (
-      playerYellow?.isAI &&
-      board.currentPlayer === 'Yellow' &&
-      !board.gameOver
-    ) {
+    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
       setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
     }
     if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
@@ -65,28 +61,20 @@ function App() {
       return;
     }
 
-    if (
-      !playAgainstYellowAiEasy.checked &&
-      !isNameValid(playerYellowInput.value)
-    ) {
+    if (!playAgainstYellowAiEasy.checked && !isNameValid(playerYellowInput.value)) {
       alert('Please enter a valid name for the Yellow player.');
       return;
     }
 
     if (playAgainstRedAiEasy.checked) {
-      state.playerRed =
-        playAgainstRedAiHard.value === 'easy'
-          ? new EasyAIClass('AI Red', 'Red')
-          : new HardAIClass('AI Red', 'Red');
+      state.playerRed = playAgainstRedAiHard.value === 'easy' ? new EasyAIClass('AI Red', 'Red') : new HardAIClass('AI Red', 'Red');
     } else {
       state.playerRed = new PlayerClass(playerRedInput.value, 'Red');
     }
 
     if (playAgainstYellowAiEasy.checked) {
       state.playerYellow =
-        playAgainstYellowAiHard.value === 'easy'
-          ? new EasyAIClass('AI Yellow', 'Yellow')
-          : new HardAIClass('AI Yellow', 'Yellow');
+        playAgainstYellowAiHard.value === 'easy' ? new EasyAIClass('AI Yellow', 'Yellow') : new HardAIClass('AI Yellow', 'Yellow');
     } else {
       state.playerYellow = new PlayerClass(playerYellowInput.value, 'Yellow');
     }
@@ -98,54 +86,45 @@ function App() {
 
   const CreatePlayer = () => {
     return (
-      <form className="modal" onSubmit={registerName}>
-        <h2>Change player</h2>
-        <div className="player-selection">
-          <label>Red Player</label>
-          <input
-            type="text"
-            name="playerRed"
-            placeholder="Namn på röd spelare"
-          />
-        </div>
-        <label>
-          <input type="checkbox" name="playAgainstRedAi" /> Play against AI
-        </label>
-        <select name="difficultyRedAi">
-          <option value="easy">Easy</option>
-          <option value="hard">Hard</option>
-        </select>
-        <div className="player-selection">
-          <label>Yellow Player</label>
-          <input
-            type="text"
-            name="playerYellow"
-            placeholder="Namn på gul spelare"
-          />
-        </div>
-        <label>
-          <input type="checkbox" name="playAgainstYellowAi" /> Play against AI
-        </label>
-        <select name="difficultyYellowAi">
-          <option value="easy">Easy</option>
-          <option value="hard">Hard</option>
-        </select>
-        <section className="center-button">
-          <button type="submit">Start Game</button>
-        </section>
-      </form>
+      <>
+        <form className="modal" onSubmit={registerName}>
+          <h2>Change player</h2>
+          <div className="player-selection">
+            <label>Red Player</label>
+            <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
+          </div>
+          <label>
+            <input type="checkbox" name="playAgainstRedAi" /> Play against AI
+          </label>
+          <select name="difficultyRedAi">
+            <option value="easy">Easy</option>
+            <option value="hard">Hard</option>
+          </select>
+          <div className="player-selection">
+            <label>Yellow Player</label>
+            <input type="text" name="playerYellow" placeholder="Namn på gul spelare" />
+          </div>
+          <label>
+            <input type="checkbox" name="playAgainstYellowAi" /> Play against AI
+          </label>
+          <select name="difficultyYellowAi">
+            <option value="easy">Easy</option>
+            <option value="hard">Hard</option>
+          </select>
+          <section className="center-button">
+            <button type="submit">Start Game</button>
+          </section>
+        </form>
+        <ViewHighScoreList />
+      </>
     );
   };
-  
-
 
   const highScore = (name: string, moves: number) => {
-    const highscores = JSON.parse(
-      localStorage.getItem('highscores') || '[]'
-    ) as { name: string; moves: number }[];
+    const highscores = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
 
     highscores.push({ name, moves });
-    highscores.sort((a, b) => a.moves - b.moves);
+    highscores.sort((a, b) => a.moves - b.moves).slice(0, 10);
 
     localStorage.setItem('highscores', JSON.stringify(highscores));
   };
@@ -154,13 +133,9 @@ function App() {
 
   useEffect(() => {
     if (board.gameOver && board.winner && !scoreUpdated) {
-      let winnerName =
-        state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+      let winnerName = state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
 
-      let winnerMoves =
-        state.board.winner === 'Yellow'
-          ? board.moveCounterRed
-          : board.moveCounterYellow;
+      let winnerMoves = state.board.winner === 'Yellow' ? board.moveCounterRed : board.moveCounterYellow;
       highScore(winnerName, winnerMoves);
 
       setScoreUpdated(true);
@@ -168,28 +143,35 @@ function App() {
   }, [board.gameOver, board.winner, scoreUpdated]);
 
   const ViewHighScoreList = () => {
-    const highscoresData = JSON.parse(
-      localStorage.getItem('highscores') || '[]'
-    ) as { name: string; moves: number }[];
-
+    const highscoresData = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
+    const sortedHighscores = highscoresData.sort((a, b) => a.moves - b.moves).slice(0, 10);
     return (
-      <ul className="highscore-list">
-        <h3>Highscorelist</h3>
-        {highscoresData.map((list, index) => (
-          <li key={index}>
-            <p>Name on player: {list.name}</p>
-            <p>Amount moves for win: {list.moves}</p>
-          </li>
-        ))}
-      </ul>
+      <div className="highscore-list">
+        <h3>Highscore List</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name of Player</th>
+              <th>Amount of Moves</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedHighscores.map((list, index) => (
+              <tr key={index}>
+                <td>{list.name}</td>
+                <td className=" highscore-moves">{list.moves}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   };
 
-      
   const handleResetGame = () => {
     board.resetBoard();
   };
-      
+
   const handleNewGame = () => {
     setState('board', new BoardClass(() => setState()));
     setState('playerRed', null);
@@ -205,30 +187,12 @@ function App() {
 
             <div className="winner-display">
               {' '}
-              <h3
-                className={
-                  state.board.winner === ''
-                    ? ''
-                    : state.board.winner === 'Red'
-                    ? 'red-text'
-                    : 'yellow-text'
-                }
-              >
+              <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
                 {' '}
                 ({state.board.winner})
               </h3>
-              <h3
-                className={
-                  state.board.winner === ''
-                    ? ''
-                    : state.board.winner === 'Red'
-                    ? 'red-text'
-                    : 'yellow-text'
-                }
-              >
-                {state.board.winner === 'Red'
-                  ? playerRed!.name
-                  : playerYellow!.name}
+              <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
+                {state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name}
               </h3>
             </div>
           </>
@@ -252,17 +216,8 @@ function App() {
 
   return (
     <>
-      {!playerRed || !playerYellow ? (
-        <CreatePlayer />
-      ) : (
-        board.render(playerRed, playerYellow)
-      )}
-      <ViewHighScoreList />
-      {!board.gameOver ? (
-        <div className="game-currentplayer"></div>
-      ) : (
-        <ViewWinner />
-      )}
+      {!playerRed || !playerYellow ? <CreatePlayer /> : board.render(playerRed, playerYellow)}
+      {!board.gameOver ? <div className="game-currentplayer"></div> : <ViewWinner />}
     </>
   );
 }

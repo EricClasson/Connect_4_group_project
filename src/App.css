@@ -1,152 +1,230 @@
 :root {
-  --borderRadius-reg: 0.25rem;
-  --text: #131002;
-  --background: #fdfaee;
-  --primary: #e4ab1e;
-  --secondary: #88f1de;
-  --accent: #509dea;
-  --marker-red: #e41e1e;
-  --marker-yellow: #f1ed88;
-
+    --borderRadius-reg: 0.25rem;
+    --text: #131002;
+    --background: #fdfaee;
+    --primary: #e4ab1e;
+    --secondary: #88f1de;
+    --accent: #509dea;
+    --marker-red: #e41e1e;
+    --marker-yellow: #f1ed88;
 }
 
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+/* Board css styling*/
+
 .board {
-  aspect-ratio: 2;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.125rem;
-  background-color: var(--accent);
-  padding: 0.625rem;
-  border-radius: 0.625rem;
+    aspect-ratio: 2;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.125rem;
+    background-color: var(--accent);
+    padding: 0.625rem;
+    border-radius: 0.625rem;
 }
 
 .column {
-  position: relative;
-  width: 6.25rem;
-  height: 6.25rem;
-  background-color: var(--background);
-  border-radius: 50%;
-  overflow: hidden;
+    position: relative;
+    width: 6.25rem;
+    height: 6.25rem;
+    background-color: var(--background);
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .column::before {
-  content: '';
-  display: block;
-  padding-top: 100%;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+    content: '';
+    display: block;
+    padding-top: 100%;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .marker {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  position: absolute;
-  top: 1.25rem;
-  left: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .red {
-  background-color: var(--marker-red);
+    background-color: var(--marker-red);
 }
 
 .yellow {
-  background-color: var(--marker-yellow);
+    background-color: var(--marker-yellow);
 }
 
-/* Added basic css for display, Dennis you are free to change styling */
+/* Player display css-- CHANGE later */
 
 .player-corner {
-  position: absolute;
-  background-color: #fcfbfb;
-  color: black;
-  padding-inline: 2rem;
-  padding-block: 0.5rem;
-  min-width: 10rem;
-  min-height: 2rem;
-  text-align: center;
+    position: absolute;
+    background-color: #fcfbfb;
+    color: black;
+    padding-inline: 2rem;
+    padding-block: 0.5rem;
+    min-width: 10rem;
+    min-height: 2rem;
+    text-align: center;
 }
 
 .top-left {
-  top: 0;
-  left: 0;
+    top: 0;
+    left: 0;
 }
 
 .top-right {
-  top: 0;
-  right: 0;
+    top: 0;
+    right: 0;
 }
 
 .highlight-red {
-  background-color: red;
+    background-color: red;
 }
 
 .highlight-yellow {
-  background-color: yellow;
+    background-color: yellow;
 }
 .red-text {
-  color: red;
+    color: red;
 }
 
 .yellow-text {
-  color: yellow;
+    color: yellow;
 }
 
+/* Gameover css-styling */
+
 .gameover-info {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #509dea;
-  padding: 4rem;
-  border-radius: 15px;
-  font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #509dea;
+    padding: 4rem;
+    border-radius: 15px;
+    font-size: 2rem;
 }
 
 .winner-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
 }
 .gameover-btn {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
 
+/* CSS for higscorelist*/
 .highscore-list {
-  background-color: #509dea;
-
-.reset-btn {
-  height: 2rem;
-  border-radius: 1rem;
-}
-.newGame-btn {
-  height: 2rem;
-  border-radius: 1rem;
-}
-.reset-btn:hover {
-  background-color: var(--background);
-  border: 5px solid var(--text);
+    background-color: var(--accent);
+    border-radius: 0.4rem;
+    padding: 1.1rem;
+    max-width: 31rem;
+    margin: 0 auto;
+    font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-.newGame-btn:hover {
-  background-color: var(--background);
-  border: 5px solid var(--text);
+.highscore-list h3 {
+    text-align: center;
+    font-size: 1.5em;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
 
+.highscore-list table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.highscore-list th {
+    background-color: var(--primary);
+    color: var(--text);
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #000000;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.highscore-list td {
+    padding: 1rem;
+    border-bottom: 1px solid #000000;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.highscore-list tr {
+    background-color: var(--background);
+}
+
+.highscore-list tr:hover {
+    background-color: var(--primary);
+}
+
+.highscore-list tbody {
+    counter-reset: rowNumber;
+}
+
+.highscore-list tbody td:first-child::before {
+    content: counter(rowNumber);
+    counter-increment: rowNumber;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.highscore-moves {
+    text-align: center;
+}
+
+.highscore-list thead,
+.highscore-list tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+@media (max-width: 768px) {
+    .highscore-list {
+        padding: 1rem;
+    }
+
+    .highscore-list th {
+        font-size: 0.9em;
+        padding: 0.8rem;
+    }
+
+    .highscore-list td {
+        font-size: 0.8em;
+        padding: 0.6rem;
+    }
 }
