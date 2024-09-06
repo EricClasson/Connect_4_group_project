@@ -133,6 +133,11 @@
   font-size: 2rem;
 }
 
+.gameover-info h2,
+.gameover-info h3 {
+  margin-block: 0;
+}
+
 .winner-display {
   display: grid;
   flex-direction: row;
@@ -150,7 +155,7 @@
   background-color: #509dea;
 }
 
-.reset-btn {
+/*👉.reset-btn {
   height: 2rem;
   border-radius: 1rem;
 }
@@ -166,4 +171,22 @@
 .newGame-btn:hover {
   background-color: var(--background);
   border: 5px solid var(--text);
+}👈*/
+
+.btn {
+  padding-inline: 1rem;
+  padding-block: 0.825rem;
+  border-radius: 0.5rem;
+  border: 0;
+  background-color: var(--primary);
+  font-weight: 500;
+  transition: transfrom 0.25s ease, background-color 0.25s ease,
+    color 0.25s ease;
+}
+.btn:hover {
+  background-color: var(--accent);
+  color: var(--text);
+}
+.btn:active {
+  transform: scaleX(0.98) scaleY(0.98);
 }

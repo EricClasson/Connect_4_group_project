@@ -212,7 +212,7 @@ function App() {
                 }
               >
                 {' '}
-                ({state.board.winner})
+                {state.board.winner}
               </h3>
               <h3
                 className={
@@ -235,14 +235,13 @@ function App() {
             <h2>It's a tie.</h2>
           </>
         )}
-        <div className="gameover-btn">
-          <button className="reset-btn btn" onClick={handleResetGame}>
-            Reset Game
-          </button>
-          <button className="reset-btn btn" onClick={handleNewGame}>
-            New Game
-          </button>
-        </div>
+
+        <button className="reset-btn btn" onClick={handleResetGame}>
+          Reset Game
+        </button>
+        <button className="reset-btn btn" onClick={handleNewGame}>
+          New Game
+        </button>
       </div>
     );
   };
