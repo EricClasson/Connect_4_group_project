@@ -1,5 +1,5 @@
 #root:has(.modal) {
-    width: min(100% - 3rem, 50ch);
+    width: min(100% - 3rem, 55ch);
 }
 
 body {
@@ -11,116 +11,89 @@ body {
 }
 
 .modal {
-    background: linear-gradient(to right, var(--accent), #71b4f7);
-    padding: 1.5rem;
+    padding-block: 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: grid;
+    gap: 1.5rem;
 }
 
 .modal h2 {
     text-align: center;
-    margin-bottom: 1.2rem;
-    color: var(--color-text);
+    margin-block: 0;
+    margin-block-start: 1.2rem;
     font-size: 37px;
-    margin-block: 2.5rem;
+    color: var(--accent);
     font-weight: 700;
-    letter-spacing: 0.2rem;
 }
-
 .player-selection {
-    margin-bottom: 1rem;
+    --_background-color: var(--marker-red, red);
+    --_color: var(--background, white);
+    display: grid;
+    gap: 1rem;
+    margin-block-end: 0.5rem;
+}
+.player-selection.player-red {
+    --_background-color: var(--marker-red);
+    --_color: var(--text);
+}
+.player-selection.player-yellow {
+    --_background-color: var(--marker-yellow);
+    --_color: var(--text);
 }
 
-.player-selection label {
-    display: block;
-    font-size: 18px;
-    color: var(--color-text);
-    font-weight: 600;
-    margin-bottom: 1.31rem;
+.player-selection > label {
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .player-selection input[type='text'] {
-    width: 100%;
-    padding: 0.625rem;
+    padding-inline: 1rem;
+    padding-block: 0.825rem;
     border: 1px solid #ccc;
     border-radius: var(--borderRadius-reg);
-    font-size: 14px;
+    font-size: 1rem;
     box-sizing: border-box;
 }
-
-label input[type='checkbox'] {
-    margin-right: 0.625rem;
-    margin-block: 0.5rem;
+.player-selection input[type='text']:focus {
+    outline: var(--_background-color) solid 2px;
 }
-
-.center-button {
-    margin-top: 1rem;
+.modal-option {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
-
-button {
-    width: 50%;
-    background: linear-gradient(to right, var(--primary), #d1b367);
-    color: var(--color-text);
-    padding: 0.625rem 0.9rem;
-    border: none;
-    border-radius: var(--borderRadius-reg);
+.modal-option > label > input {
+    display: none;
+}
+.modal-option > label {
+    padding-inline: 0.825rem;
+    padding-block: 0.25rem;
+    border-radius: 50vh;
+    border: var(--_background-color) 2px solid;
+    transition: background-color 0.25s ease;
+}
+.modal-option > label:has(> input:checked) {
+    background-color: var(--_background-color);
+    color: var(--_color);
+}
+.btn {
+    padding-inline: 1rem;
+    padding-block: 0.825rem;
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: var(--primary);
+    font-weight: 500;
+    transition: transfrom 0.25s ease, background-color 0.25s ease, color 0.25s ease;
     cursor: pointer;
-    font-size: 14px;
-    margin-block: 2rem;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.btn:hover {
+    background-color: var(--accent);
+    color: var(--text);
+}
+.btn:active {
+    transform: scaleX(0.98) scaleY(0.98);
+}
+input[type='text'] {
+    min-width: 0;
 }
 
-button:hover {
-    background: linear-gradient(to left, var(--primary), #d1cdc2);
-    transition: all 6s ease;
-}
-
-button[type='button'] {
-    width: 100%;
-    margin: 5px 2.5%;
-}
-
-div button + button {
-    margin-left: 0.625rem;
-}
-
-select {
-    border-radius: var(--borderRadius-reg);
-    background-color: var(--color-text);
-    color: var(--background);
-    margin-inline: 1rem;
-    margin-bottom: 2rem;
-    height: 100%;
-    padding: 0.2rem;
-}
-
-option[value='hard']:nth-child(even) {
-    background-color: rgb(158, 29, 29);
-    color: var(--background);
-    text-align: center;
-}
-option[value='hard']:nth-child(even):hover {
-    background-color: rgb(234, 51, 51);
-}
-option[value='easy']:nth-child(odd) {
-    background-color: rgb(32, 164, 35);
-    color: var(--background);
-    text-align: center;
-}
-option[value='easy']:nth-child(even):hover {
-    background-color: rgb(107, 250, 109);
-}
-@media (max-width: 500px) {
-    button {
-        margin-top: 2rem;
-        width: 100%;
-    }
-
-    select {
-        margin-bottom: 4.5rem;
-    }
-}
