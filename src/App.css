@@ -1,4 +1,5 @@
 :root {
+  --borderRadius-reg: 0.25rem;
   --text: #131002;
   --background: #fdfaee;
   --primary: #e4ab1e;
@@ -6,6 +7,7 @@
   --accent: #509dea;
   --marker-red: #e41e1e;
   --marker-yellow: #f1ed88;
+
 }
 
 .board {
@@ -129,4 +131,22 @@
 
 .highscore-list {
   background-color: #509dea;
+
+.reset-btn {
+  height: 2rem;
+  border-radius: 1rem;
+}
+.newGame-btn {
+  height: 2rem;
+  border-radius: 1rem;
+}
+.reset-btn:hover {
+  background-color: var(--background);
+  border: 5px solid var(--text);
+}
+
+.newGame-btn:hover {
+  background-color: var(--background);
+  border: 5px solid var(--text);
+
 }

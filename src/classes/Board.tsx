@@ -28,6 +28,15 @@ export default class Board {
     this.moveCounterYellow = 1;
   }
 
+  resetBoard() {
+    this.matrix = [...new Array(6)].map(() => [...new Array(7)].map(() => ' '));
+    this.currentPlayer = 'Red';
+    this.winner = false;
+    this.isDraw = false;
+    this.gameOver = false;
+    this.stateUpdater();
+  }
+
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
     return (
       <div className="board-container">
@@ -51,9 +60,7 @@ export default class Board {
               {row.map((column, columnIndex) => (
                 <div
                   key={columnIndex}
-                  className={`column ${column} ${
-                    column === ' ' ? '' : column === 'Red' ? 'red' : 'yellow'
-                  }`}
+                  className={`column ${column.toLowerCase()}`}
                   onClick={() => this.makeMove(columnIndex)}
                 ></div>
               ))}
@@ -73,7 +80,7 @@ export default class Board {
       } else {
         this.moveCounterYellow++;
       }
-      this.winner = this.winCheck.checkForWin();
+      this.winner = this.winCheck.checkForWin(this.currentPlayer);
       this.isDraw = this.draw();
       this.gameOver = this.winner || this.isDraw;
       this.currentPlayer = this.currentPlayer === 'Red' ? 'Yellow' : 'Red';
