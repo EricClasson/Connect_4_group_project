@@ -1,12 +1,12 @@
 :root {
-    --borderRadius-reg: 0.25rem;
-    --text: #131002;
-    --background: #fdfaee;
-    --primary: #e4ab1e;
-    --secondary: #88f1de;
-    --accent: #509dea;
-    --marker-red: #e41e1e;
-    --marker-yellow: #f1ed88;
+  --borderRadius-reg: 0.25rem;
+  --text: #131002;
+  --background: #fdfaee;
+  --primary: #e4ab1e;
+  --secondary: #88f1de;
+  --accent: #509dea;
+  --marker-red: #e41e1e;
+  --marker-yellow: #f1ed88;
 }
 
 body {
@@ -18,36 +18,26 @@ body {
 
 /* Board css styling*/
 
+.board-container {
+  display: grid;
+  gap: 3rem;
+}
+
 .board {
-    aspect-ratio: 2;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.125rem;
-    background-color: var(--accent);
-    padding: 0.625rem;
-    border-radius: 0.625rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.125rem;
+  background-color: var(--accent);
+  padding: 0.625rem;
+  border-radius: 0.625rem;
 }
 
 .column {
-    position: relative;
-    width: 6.25rem;
-    height: 6.25rem;
-    background-color: var(--background);
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.column::before {
-    content: '';
-    display: block;
-    padding-top: 100%;
-    border-radius: 50%;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: var(--background);
+  border-radius: 50%;
 }
 
 .marker {
@@ -74,25 +64,33 @@ body {
 /* Player display css-- CHANGE later */
 
 .player-corner {
-    position: absolute;
-    background-color: #fcfbfb;
-    color: black;
-    padding-inline: 2rem;
-    padding-block: 0.5rem;
-    min-width: 10rem;
-    min-height: 2rem;
-    text-align: center;
+  --_marker-color: var(--marker-red, red);
+  display: grid;
+  place-content: center;
+  background-color: #fcfbfb;
+  color: black;
+  padding-inline: 2rem;
+  padding-block: 0.5rem;
+  width: 100%;
+  max-width: 5rem;
+  min-height: 2rem;
+  outline: 3px solid var(--_marker-color);
 }
 
-.top-left {
-    top: 0;
-    left: 0;
+.player-red {
+  --_marker-color: var(--marker-red, red);
 }
 
-.top-right {
-    top: 0;
-    right: 0;
+.player-yellow {
+  --_marker-color: var(--marker-yellow, yellow);
 }
+
+.board-nav-display-name {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 .highlight-red {
     background-color: red;
@@ -112,34 +110,47 @@ body {
 /* Gameover css-styling */
 
 .gameover-info {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #509dea;
-    padding: 4rem;
-    border-radius: 15px;
-    font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: max-content;
+  display: grid;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #509dea;
+  padding: clamp(1rem, 10vw, 4rem);
+  border-radius: 15px;
+  font-size: 2rem;
+}
+
+.gameover-info h2 {
+  font-size: clamp(1.25rem, 10vw, 2.5rem);
+}
+
+.gameover-info h2,
+.gameover-info h3 {
+  margin-block: 0;
 }
 
 .winner-display {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
+  display: grid;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
 }
+
 .gameover-btn {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
+  display: grid;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 /* CSS for higscorelist*/
+
 .highscore-list {
     background-color: var(--accent);
     border-radius: 0.4rem;
@@ -172,6 +183,10 @@ body {
     position: sticky;
     top: 0;
     z-index: 1;
+}
+
+.gameover-info > .btn:hover {
+  background-color: var(--background);
 }
 
 .highscore-list td {
@@ -227,4 +242,3 @@ body {
         font-size: 0.8em;
         padding: 0.6rem;
     }
-}

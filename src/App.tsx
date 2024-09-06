@@ -131,9 +131,11 @@ function App() {
           Start Game
         </button>
       </form>
-      <ViewHighScoreList />
+         <ViewHighScoreList />
      </>
-    
+    );
+  };
+  
   const highScore = (name: string, moves: number) => {
     const highscores = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
 
@@ -203,7 +205,7 @@ function App() {
               {' '}
               <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
                 {' '}
-                ({state.board.winner})
+                {state.board.winner}
               </h3>
               <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
                 {state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name}
@@ -216,14 +218,13 @@ function App() {
             <h2>It's a tie.</h2>
           </>
         )}
-        <div className="gameover-btn">
-          <button className="reset-btn" onClick={handleResetGame}>
-            Reset Game
-          </button>
-          <button className="reset-btn" onClick={handleNewGame}>
-            New Game
-          </button>
-        </div>
+
+        <button className="reset-btn btn" onClick={handleResetGame}>
+          Reset Game
+        </button>
+        <button className="reset-btn btn" onClick={handleNewGame}>
+          New Game
+        </button>
       </div>
     );
   };
