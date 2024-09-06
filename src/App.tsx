@@ -54,6 +54,7 @@ function App() {
     // } else {
     //   state.playerYellow = new PlayerClass(playerYellowInput.value, 'Yellow');
     // }
+    console.log(playerRedOption.value);
     switch (playerRedOption.value) {
       case 'human':
         state.playerRed = new PlayerClass(playerRedName.value, 'Red', false, false);
@@ -88,50 +89,47 @@ function App() {
       setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
     }
   }, [setState]);
+
   const CreatePlayer = () => {
     return (
       <form className="modal" onSubmit={registerName}>
-        <h2>Connect 4</h2>
-        <div className="player-selection">
+        <h2>Connect Four</h2>
+        <div className="player-selection player-red">
           <label htmlFor="playerRed">Red Player</label>
-          <input type="text" name="playerRed" placeholder="Namn på röd spelare" />
+          <input type="text" name="playerRed" placeholder="Name for red player" />
+          <div className="modal-option">
+            <label htmlFor="humanRed">
+              Human
+              <input type="radio" defaultChecked name="playerRedOption" id="humanRed" value={'human'} />
+            </label>
+            <label htmlFor="aiEasyRed">
+              Ai - Easy
+              <input type="radio" name="playerRedOption" id="aiEasyRed" value={'false'} />
+            </label>
+            <label htmlFor="aiHardRed">
+              Ai - Hard
+              <input type="radio" name="playerRedOption" id="aiHardRed" value={'true'} />
+            </label>
+          </div>
         </div>
-        <div className="modal-option">
-          <label htmlFor="humanRed">
-            Human
-            <input type="radio" name="playerRedOption" id="humanRed" value={'human'} />
-          </label>
-          <label htmlFor="aiEasyRed">
-            Ai - Easy
-            <input type="radio" name="playerRedOption" id="aiEasyRed" value={'false'} />
-          </label>
-          <label htmlFor="aiHardRed">
-            Ai - Hard
-            <input type="radio" name="playerRedOption" id="aiHardRed" value={'true'} />
-          </label>
-        </div>
-        <div className="player-selection">
+        <div className="player-selection player-yellow">
           <label>Yellow Player</label>
-          <input type="text" name="playerYellow" placeholder="Namn på gul spelare" />
+          <input type="text" name="playerYellow" placeholder="Name for yellow player" />
+          <div className="modal-option">
+            <label htmlFor="humanYellow">
+              Human
+              <input type="radio" defaultChecked name="playerYellowOption" id="humanYellow" value={'human'} />
+            </label>
+            <label htmlFor="aiEasyYellow">
+              Ai - Easy
+              <input type="radio" name="playerYellowOption" id="aiEasyYellow" value={'false'} />
+            </label>
+            <label htmlFor="aiHardYellow">
+              Ai - Hard
+              <input type="radio" name="playerYellowOption" id="aiHardYellow" value={'true'} />
+            </label>
+          </div>
         </div>
-        <div className="modal-option">
-          <label htmlFor="humanYellow">
-            Human
-            <input type="radio" name="playerYellowOption" id="humanYellow" value={'human'} />
-          </label>
-          <label htmlFor="aiEasyYellow">
-            Ai - Easy
-            <input type="radio" name="playerYellowOption" id="aiEasyYellow" value={'false'} />
-          </label>
-          <label htmlFor="aiHardYellow">
-            Ai - Hard
-            <input type="radio" name="playerYellowOption" id="aiHardYellow" value={'true'} />
-          </label>
-        </div>
-        {/* <select name="difficultyYellowAi">
-          <option value="easy">Easy</option>
-          <option value="hard">Hard</option>
-        </select> */}
         <button className="btn" type="submit">
           Start Game
         </button>
