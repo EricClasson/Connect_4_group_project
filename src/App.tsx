@@ -6,18 +6,6 @@ import { FormEvent, useEffect, useState } from 'react';
 import PlayerClass from './classes/Player';
 import { Fragment } from 'react';
 
-class EasyAIClass extends PlayerClass {
-  constructor(name: string, color: string) {
-    super(name, color);
-  }
-}
-
-class HardAIClass extends PlayerClass {
-  constructor(name: string, color: string) {
-    super(name, color);
-  }
-}
-
 function App() {
   const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
@@ -31,13 +19,9 @@ function App() {
   };
 
   const { board, playerRed, playerYellow } = state;
-
+  
   useEffect(() => {
-    if (
-      playerYellow?.isAI &&
-      board.currentPlayer === 'Yellow' &&
-      !board.gameOver
-    ) {
+    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
       setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
     }
     if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
@@ -48,102 +32,115 @@ function App() {
   function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    const playerRedInput = form.elements[0] as HTMLInputElement;
-    const playerYellowInput = form.elements[1] as HTMLInputElement;
-    // under this is ai players red and yellow hard ore Easy
-    const playAgainstRedAiEasy = form.elements[2] as HTMLInputElement;
-    const playAgainstRedAiHard = form.elements[3] as HTMLSelectElement;
-    const playAgainstYellowAiEasy = form.elements[4] as HTMLInputElement;
-    const playAgainstYellowAiHard = form.elements[5] as HTMLSelectElement;
+    const playerRedName = form.elements.namedItem('playerRed') as HTMLInputElement;
+    const playerYellowName = form.elements.namedItem('playerYellow') as HTMLInputElement;
+    const playerYellowOption = form.elements.namedItem('playerYellowOption') as HTMLInputElement;
+    const playerRedOption = form.elements.namedItem('playerRedOption') as HTMLInputElement;
+    console.log(playerYellowOption.value);
 
     const isNameValid = (name: string) => {
       return name.trim() !== '' && isNaN(Number(name));
     };
 
-    if (!playAgainstRedAiEasy.checked && !isNameValid(playerRedInput.value)) {
+    if (!isNameValid(playerRedName.value)) {
       alert('Please enter a valid name for the Red player.');
       return;
     }
 
-    if (
-      !playAgainstYellowAiEasy.checked &&
-      !isNameValid(playerYellowInput.value)
-    ) {
+    if (!isNameValid(playerYellowName.value)) {
       alert('Please enter a valid name for the Yellow player.');
       return;
     }
 
-    if (playAgainstRedAiEasy.checked) {
-      state.playerRed =
-        playAgainstRedAiHard.value === 'easy'
-          ? new EasyAIClass('AI Red', 'Red')
-          : new HardAIClass('AI Red', 'Red');
-    } else {
-      state.playerRed = new PlayerClass(playerRedInput.value, 'Red');
+    switch (playerRedOption.value) {
+      case 'human':
+        state.playerRed = new PlayerClass(playerRedName.value, 'Red', false, false);
+        break;
+      case 'false':
+        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, false);
+        break;
+      case 'true':
+        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, true);
+        break;
     }
-
-    if (playAgainstYellowAiEasy.checked) {
-      state.playerYellow =
-        playAgainstYellowAiHard.value === 'easy'
-          ? new EasyAIClass('AI Yellow', 'Yellow')
-          : new HardAIClass('AI Yellow', 'Yellow');
-    } else {
-      state.playerYellow = new PlayerClass(playerYellowInput.value, 'Yellow');
+    switch (playerYellowOption.value) {
+      case 'human':
+        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', false, false);
+        break;
+      case 'false':
+        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, false);
+        break;
+      case 'true':
+        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, true);
+        break;
     }
-
-    console.log(state.playerYellow);
-    console.log(state.playerRed);
     board.stateUpdater();
   }
 
+  useEffect(() => {
+    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
+      setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
+    }
+    if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
+      setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
+    }
+  }, [setState]);
+
   const CreatePlayer = () => {
     return (
+     <>
       <form className="modal" onSubmit={registerName}>
-        <h2>Change player</h2>
-        <div className="player-selection">
-          <label>Red Player</label>
-          <input
-            type="text"
-            name="playerRed"
-            placeholder="Namn på röd spelare"
-          />
+        <h2>Connect Four</h2>
+        <div className="player-selection player-red">
+          <label htmlFor="playerRed">Red Player</label>
+          <input type="text" name="playerRed" placeholder="Name for red player" />
+          <div className="modal-option">
+            <label htmlFor="humanRed">
+              Human
+              <input type="radio" defaultChecked name="playerRedOption" id="humanRed" value={'human'} />
+            </label>
+            <label htmlFor="aiEasyRed">
+              Ai - Easy
+              <input type="radio" name="playerRedOption" id="aiEasyRed" value={'false'} />
+            </label>
+            <label htmlFor="aiHardRed">
+              Ai - Hard
+              <input type="radio" name="playerRedOption" id="aiHardRed" value={'true'} />
+            </label>
+          </div>
         </div>
-        <label>
-          <input type="checkbox" name="playAgainstRedAi" /> Play against AI
-        </label>
-        <select name="difficultyRedAi">
-          <option value="easy">Easy</option>
-          <option value="hard">Hard</option>
-        </select>
-        <div className="player-selection">
+        <div className="player-selection player-yellow">
           <label>Yellow Player</label>
-          <input
-            type="text"
-            name="playerYellow"
-            placeholder="Namn på gul spelare"
-          />
+          <input type="text" name="playerYellow" placeholder="Name for yellow player" />
+          <div className="modal-option">
+            <label htmlFor="humanYellow">
+              Human
+              <input type="radio" defaultChecked name="playerYellowOption" id="humanYellow" value={'human'} />
+            </label>
+            <label htmlFor="aiEasyYellow">
+              Ai - Easy
+              <input type="radio" name="playerYellowOption" id="aiEasyYellow" value={'false'} />
+            </label>
+            <label htmlFor="aiHardYellow">
+              Ai - Hard
+              <input type="radio" name="playerYellowOption" id="aiHardYellow" value={'true'} />
+            </label>
+          </div>
         </div>
-        <label>
-          <input type="checkbox" name="playAgainstYellowAi" /> Play against AI
-        </label>
-        <select name="difficultyYellowAi">
-          <option value="easy">Easy</option>
-          <option value="hard">Hard</option>
-        </select>
-        <section className="center-button">
-          <button type="submit">Start Game</button>
-        </section>
+        <button className="btn" type="submit">
+          Start Game
+        </button>
       </form>
+         <ViewHighScoreList />
+     </>
     );
   };
-
+  
   const highScore = (name: string, moves: number) => {
-    const highscores = JSON.parse(
-      localStorage.getItem('highscores') || '[]'
-    ) as { name: string; moves: number }[];
+    const highscores = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
 
     highscores.push({ name, moves });
-    highscores.sort((a, b) => a.moves - b.moves);
+    highscores.sort((a, b) => a.moves - b.moves).slice(0, 10);
 
     localStorage.setItem('highscores', JSON.stringify(highscores));
   };
@@ -152,13 +149,9 @@ function App() {
 
   useEffect(() => {
     if (board.gameOver && board.winner && !scoreUpdated) {
-      let winnerName =
-        state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+      let winnerName = state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
 
-      let winnerMoves =
-        state.board.winner === 'Yellow'
-          ? board.moveCounterRed
-          : board.moveCounterYellow;
+      let winnerMoves = state.board.winner === 'Yellow' ? board.moveCounterRed : board.moveCounterYellow;
       highScore(winnerName, winnerMoves);
 
       setScoreUpdated(true);
@@ -166,20 +159,28 @@ function App() {
   }, [board.gameOver, board.winner, scoreUpdated]);
 
   const ViewHighScoreList = () => {
-    const highscoresData = JSON.parse(
-      localStorage.getItem('highscores') || '[]'
-    ) as { name: string; moves: number }[];
-
+    const highscoresData = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
+    const sortedHighscores = highscoresData.sort((a, b) => a.moves - b.moves).slice(0, 10);
     return (
-      <ul className="highscore-list">
-        <h3>Highscorelist</h3>
-        {highscoresData.map((list, index) => (
-          <li key={index}>
-            <p>Name on player: {list.name}</p>
-            <p>Amount moves for win: {list.moves}</p>
-          </li>
-        ))}
-      </ul>
+      <div className="highscore-list">
+        <h3>Highscore List</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name of Player</th>
+              <th>Amount of Moves</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedHighscores.map((list, index) => (
+              <tr key={index}>
+                <td>{list.name}</td>
+                <td className=" highscore-moves">{list.moves}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   };
 
@@ -202,30 +203,12 @@ function App() {
 
             <div className="winner-display">
               {' '}
-              <h3
-                className={
-                  state.board.winner === ''
-                    ? ''
-                    : state.board.winner === 'Red'
-                    ? 'red-text'
-                    : 'yellow-text'
-                }
-              >
+              <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
                 {' '}
                 {state.board.winner}
               </h3>
-              <h3
-                className={
-                  state.board.winner === ''
-                    ? ''
-                    : state.board.winner === 'Red'
-                    ? 'red-text'
-                    : 'yellow-text'
-                }
-              >
-                {state.board.winner === 'Red'
-                  ? playerRed!.name
-                  : playerYellow!.name}
+              <h3 className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}>
+                {state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name}
               </h3>
             </div>
           </>
@@ -248,17 +231,8 @@ function App() {
 
   return (
     <>
-      {!playerRed || !playerYellow ? (
-        <CreatePlayer />
-      ) : (
-        board.render(playerRed, playerYellow)
-      )}
-      <ViewHighScoreList />
-      {!board.gameOver ? (
-        <div className="game-currentplayer"></div>
-      ) : (
-        <ViewWinner />
-      )}
+      {!playerRed || !playerYellow ? <CreatePlayer /> : board.render(playerRed, playerYellow)}
+      {!board.gameOver ? <div className="game-currentplayer"></div> : <ViewWinner />}
     </>
   );
 }
