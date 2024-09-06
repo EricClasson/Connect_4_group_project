@@ -7,11 +7,14 @@
   --accent: #509dea;
   --marker-red: #e41e1e;
   --marker-yellow: #f1ed88;
+}
 
+.board-container {
+  display: grid;
+  gap: 3rem;
 }
 
 .board {
-  aspect-ratio: 2;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0.125rem;
@@ -22,11 +25,10 @@
 
 .column {
   position: relative;
-  width: 6.25rem;
-  height: 6.25rem;
+  width: 100%;
+  aspect-ratio: 1;
   background-color: var(--background);
   border-radius: 50%;
-  overflow: hidden;
 }
 
 .column::before {
@@ -66,14 +68,29 @@
 /* Added basic css for display, Dennis you are free to change styling */
 
 .player-corner {
-  position: absolute;
+  --_marker-color: var(--marker-red, red);
   background-color: #fcfbfb;
   color: black;
   padding-inline: 2rem;
   padding-block: 0.5rem;
-  min-width: 10rem;
+  width: 100%;
+  max-width: 5rem;
   min-height: 2rem;
   text-align: center;
+  outline: 3px solid var(--_marker-color);
+}
+
+.player-red {
+  --_marker-color: var(--marker-red, red);
+}
+
+.player-yellow {
+  --_marker-color: var(--marker-yellow, yellow);
+}
+
+.board-nav-display-name {
+  display: flex;
+  justify-content: space-between;
 }
 
 .top-left {
@@ -117,20 +134,21 @@
 }
 
 .winner-display {
-  display: flex;
+  display: grid;
   flex-direction: row;
   align-items: center;
   text-align: center;
   gap: 1rem;
 }
 .gameover-btn {
-  display: flex;
+  display: grid;
   flex-direction: row;
   gap: 1rem;
 }
 
 .highscore-list {
   background-color: #509dea;
+}
 
 .reset-btn {
   height: 2rem;
@@ -148,5 +166,4 @@
 .newGame-btn:hover {
   background-color: var(--background);
   border: 5px solid var(--text);
-
 }

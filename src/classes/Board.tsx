@@ -40,20 +40,23 @@ export default class Board {
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
     return (
       <div className="board-container">
-        <div
-          className={`player-corner top-left ${
-            this.currentPlayer === 'Red' ? 'highlight-red' : ''
-          }`}
-        >
-          {playerRed?.name}
+        <div className="board-nav-display-name">
+          <div
+            className={`player-corner top-left player-red ${
+              this.currentPlayer === 'Red' ? 'highlight-red' : ''
+            }`}
+          >
+            {playerRed?.name}
+          </div>
+          <div
+            className={`player-corner top-right player-yellow ${
+              this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''
+            }`}
+          >
+            {playerYellow?.name}
+          </div>
         </div>
-        <div
-          className={`player-corner top-right ${
-            this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''
-          }`}
-        >
-          {playerYellow?.name}
-        </div>
+
         <div className="board">
           {this.matrix.map((row, rowIndex) => (
             <Fragment key={rowIndex}>

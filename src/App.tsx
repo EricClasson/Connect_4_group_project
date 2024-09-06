@@ -136,8 +136,6 @@ function App() {
       </form>
     );
   };
-  
-
 
   const highScore = (name: string, moves: number) => {
     const highscores = JSON.parse(
@@ -185,11 +183,10 @@ function App() {
     );
   };
 
-      
   const handleResetGame = () => {
     board.resetBoard();
   };
-      
+
   const handleNewGame = () => {
     setState('board', new BoardClass(() => setState()));
     setState('playerRed', null);
@@ -239,10 +236,10 @@ function App() {
           </>
         )}
         <div className="gameover-btn">
-          <button className="reset-btn" onClick={handleResetGame}>
+          <button className="reset-btn btn" onClick={handleResetGame}>
             Reset Game
           </button>
-          <button className="reset-btn" onClick={handleNewGame}>
+          <button className="reset-btn btn" onClick={handleNewGame}>
             New Game
           </button>
         </div>
