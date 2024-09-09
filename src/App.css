@@ -10,10 +10,10 @@
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-        sans-serif;
-    background-color: var(--background);
-    color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 /* Board css styling*/
@@ -38,27 +38,28 @@ body {
   aspect-ratio: 1;
   background-color: var(--background);
   border-radius: 50%;
+  transition: background-color 0.3s ease, border 0.3s ease;
 }
 
 .marker {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 .red {
-    background-color: var(--marker-red);
+  background-color: var(--marker-red);
 }
 
 .yellow {
-    background-color: var(--marker-yellow);
+  background-color: var(--marker-yellow);
 }
 
 /* Player display css-- CHANGE later */
@@ -90,21 +91,19 @@ body {
   justify-content: space-between;
 }
 
-
-
 .highlight-red {
-    background-color: red;
+  background-color: red;
 }
 
 .highlight-yellow {
-    background-color: yellow;
+  background-color: yellow;
 }
 .red-text {
-    color: red;
+  color: red;
 }
 
 .yellow-text {
-    color: yellow;
+  color: yellow;
 }
 
 /* Gameover css-styling */
@@ -152,37 +151,37 @@ body {
 /* CSS for higscorelist*/
 
 .highscore-list {
-    background-color: var(--accent);
-    border-radius: 0.4rem;
-    padding: 1.1rem;
-    max-width: 31rem;
-    margin: 0 auto;
-    font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--accent);
+  border-radius: 0.4rem;
+  padding: 1.1rem;
+  max-width: 31rem;
+  margin: 0 auto;
+  font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .highscore-list h3 {
-    text-align: center;
-    font-size: 1.5em;
-    color: var(--text);
-    margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--text);
+  margin-bottom: 1rem;
 }
 
 .highscore-list table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
 }
 
 .highscore-list th {
-    background-color: var(--primary);
-    color: var(--text);
-    padding: 1rem;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 2px solid #000000;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+  background-color: var(--primary);
+  color: var(--text);
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #000000;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .gameover-info > .btn:hover {
@@ -190,55 +189,52 @@ body {
 }
 
 .highscore-list td {
-    padding: 1rem;
-    border-bottom: 1px solid #000000;
-    white-space: nowrap;
-    overflow: hidden;
+  padding: 1rem;
+  border-bottom: 1px solid #000000;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .highscore-list tr {
-    background-color: var(--background);
-}
-
-.highscore-list tr:hover {
-    background-color: var(--primary);
+  background-color: var(--background);
 }
 
 .highscore-list tbody {
-    counter-reset: rowNumber;
+  counter-reset: rowNumber;
 }
 
 .highscore-list tbody td:first-child::before {
-    content: counter(rowNumber);
-    counter-increment: rowNumber;
-    display: inline-block;
-    text-align: center;
-    font-weight: bold;
-    margin-right: 1rem;
+  content: counter(rowNumber);
+  counter-increment: rowNumber;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  margin-right: 1rem;
 }
 
 .highscore-moves {
-    text-align: center;
+  text-align: center;
 }
 
 .highscore-list thead,
 .highscore-list tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
-@media (max-width: 768px) {
-    .highscore-list {
-        padding: 1rem;
-    }
+.winning-marker {
+  animation: winningFrames 1s ease-in-out infinite;
+}
 
-    .highscore-list th {
-        font-size: 0.9em;
-        padding: 0.8rem;
-    }
-
-    .highscore-list td {
-        font-size: 0.8em;
-        padding: 0.6rem;
-    }
+@keyframes winningFrames {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
