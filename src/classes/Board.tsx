@@ -47,7 +47,11 @@ export default class Board {
           <div className={`player-corner top-left player-red ${this.currentPlayer === 'Red' ? 'highlight-red' : ''}`}>
             {playerRed?.name}
           </div>
-          <div className={`player-corner top-right player-yellow ${this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''}`}>
+          <div
+            className={`player-corner top-right player-yellow ${
+              this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''
+            }`}
+          >
             {playerYellow?.name}
           </div>
         </div>
@@ -59,17 +63,13 @@ export default class Board {
                 const isWinningMarker = this.winningMarker.some(([r, c]) => r === rowIndex && c === columnIndex);
                 return (
                   <div className="board-cell" key={columnIndex}>
-                    <div
-                      key={columnIndex}
-                      className={`column}`}
-                      onClick={() => this.makeMove(columnIndex)}
-                    ></div>
+                    <div key={columnIndex} className={`column`} onClick={() => this.makeMove(columnIndex)}></div>
                     {column && (
-                    <div
-                      style={{ '--row': rowIndex + 1 } as React.CSSProperties}
-                      className={`marker ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
-                    ></div>
-                  )}
+                      <div
+                        style={{ '--row': rowIndex + 1 } as React.CSSProperties}
+                        className={`marker ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
+                      ></div>
+                    )}
                   </div>
                 );
               })}
@@ -105,6 +105,6 @@ export default class Board {
   }
 
   draw(): boolean {
-    return this.matrix[0].every(cell => cell !== ' ');
+    return this.matrix[0].every((cell) => cell !== ' ');
   }
 }
