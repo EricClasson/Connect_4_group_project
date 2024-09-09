@@ -26,21 +26,20 @@ body {
 .board {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  /* background-color: var(--accent); */
-  padding: 0.625rem;
-  border-radius: 0.625rem;
+  border: solid 1.5rem;
+  border-color: var(--accent);
+  border-radius: 1rem;
+  border-bottom-width: 3rem;
 }
-
 .column {
   position: relative;
-  width: 100%;
   aspect-ratio: 1/1;
   overflow: hidden;
 }
 .column::before {
   content: '';
   position: absolute;
-  inset: 0.5rem;
+  inset: 8px;
   border-radius: 50vh;
   outline: 1000px solid var(--accent);
 }
@@ -48,10 +47,10 @@ body {
   position: relative;
 }
 .marker {
-  --_marker-animation: ease-in;
+  --_marker-animation: cubic-bezier(0.85, -0.28, 0.59, 1.1);
   position: absolute;
   width: 100%;
-  aspect-ratio: 1/1;
+  height: 100%;
   z-index: -1;
   top: 0;
   border-radius: 50vh;
@@ -59,21 +58,26 @@ body {
 
 .red {
   background-color: var(--marker-red);
-  animation: falling 0.5s var(--_marker-animation);
+  animation: falling calc(0.11s * var(--row)) var(--_marker-animation);
 }
 
 .yellow {
   background-color: var(--marker-yellow);
-  animation: falling 1s var(--_marker-animation);
+  animation: falling calc(0.11s * var(--row)) var(--_marker-animation);
 }
-.yellow::before {
+.marker::before {
   content: '';
   position: absolute;
   inset: 1rem;
   border-radius: 50vh;
   z-index: 1000;
-  border: 10px double;
-  border-color: #83814c transparent;
+  border: 5px solid transparent;
+}
+.yellow::before {
+  border-color: hsl(58, 79%, 40%);
+}
+.red::before {
+  border-color: hsl(0, 79%, 30%);
 }
 
 @keyframes falling {
