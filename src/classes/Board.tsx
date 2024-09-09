@@ -56,7 +56,11 @@ export default class Board {
           </div>
         </div>
 
-        <div className="board">
+        <div
+          className={`board ${this.currentPlayer === playerRed!.color && playerRed!.isAI ? 'inactive' : ''} ${
+            this.currentPlayer === playerYellow!.color && playerYellow!.isAI ? 'inactive' : ''
+          }`}
+        >
           {this.matrix.map((row, rowIndex) => (
             <Fragment key={rowIndex}>
               {row.map((column, columnIndex) => {
