@@ -269,18 +269,18 @@ body {
   table-layout: fixed;
 }
 
-@media (max-width: 768px) {
-  .highscore-list {
-    padding: 1rem;
-  }
+.winning-marker {
+  animation: winningFrames 1s ease-in-out infinite;
+}
 
-  .highscore-list th {
-    font-size: 0.9em;
-    padding: 0.8rem;
+@keyframes winningFrames {
+  0% {
+    opacity: 1;
   }
-
-  .highscore-list td {
-    font-size: 0.8em;
-    padding: 0.6rem;
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
   }
 }

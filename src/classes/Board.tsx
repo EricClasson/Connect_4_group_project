@@ -14,6 +14,7 @@ export default class Board {
   gameOver: boolean | string;
   moveCounterRed: number;
   moveCounterYellow: number;
+  winningMarker: [number, number][];
 
   constructor(stateUpdater: Function) {
     this.stateUpdater = stateUpdater;
@@ -26,6 +27,7 @@ export default class Board {
     this.gameOver = false;
     this.moveCounterRed = 1;
     this.moveCounterYellow = 1;
+    this.winningMarker = [];
   }
 
   resetBoard() {
@@ -35,6 +37,7 @@ export default class Board {
     this.isDraw = false;
     this.gameOver = false;
     this.stateUpdater();
+    this.winningMarker = [];
   }
 
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
@@ -44,11 +47,7 @@ export default class Board {
           <div className={`player-corner top-left player-red ${this.currentPlayer === 'Red' ? 'highlight-red' : ''}`}>
             {playerRed?.name}
           </div>
-          <div
-            className={`player-corner top-right player-yellow ${
-              this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''
-            }`}
-          >
+          <div className={`player-corner top-right player-yellow ${this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''}`}>
             {playerYellow?.name}
           </div>
         </div>
@@ -56,17 +55,24 @@ export default class Board {
         <div className="board">
           {this.matrix.map((row, rowIndex) => (
             <Fragment key={rowIndex}>
-              {row.map((column, columnIndex) => (
-                <div className="board-cell" key={columnIndex}>
-                  <div className={`column`} onClick={() => this.makeMove(columnIndex)}></div>
-                  {column && (
+              {row.map((column, columnIndex) => {
+                const isWinningMarker = this.winningMarker.some(([r, c]) => r === rowIndex && c === columnIndex);
+                return (
+                  <div className="board-cell" key={columnIndex}>
+                    <div
+                      key={columnIndex}
+                      className={`column}`}
+                      onClick={() => this.makeMove(columnIndex)}
+                    ></div>
+                    {column && (
                     <div
                       style={{ '--row': rowIndex + 1 } as React.CSSProperties}
-                      className={`marker ${column.toLowerCase()}`}
+                      className={`marker ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
                     ></div>
                   )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </Fragment>
           ))}
         </div>
@@ -83,6 +89,11 @@ export default class Board {
       } else {
         this.moveCounterYellow++;
       }
+      const winResult = this.winCheck.checkForWin(this.currentPlayer);
+
+      if (typeof winResult === 'string') {
+        this.winningMarker = this.winCheck.getWinningCells();
+      }
       this.winner = this.winCheck.checkForWin(this.currentPlayer);
       this.isDraw = this.draw();
       this.gameOver = this.winner || this.isDraw;
@@ -94,6 +105,6 @@ export default class Board {
   }
 
   draw(): boolean {
-    return this.matrix[0].every((cell) => cell !== ' ');
+    return this.matrix[0].every(cell => cell !== ' ');
   }
 }
