@@ -10,10 +10,10 @@
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-        sans-serif;
-    background-color: var(--background);
-    color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 /* Board css styling*/
@@ -26,41 +26,84 @@ body {
 .board {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.125rem;
-  background-color: var(--accent);
-  padding: 0.625rem;
-  border-radius: 0.625rem;
+  border: solid 0.5rem;
+  border-color: var(--accent);
+  border-radius: 1rem;
+  border-bottom-width: 1rem;
 }
-
+@media (min-width: 550px) {
+  .board {
+    border-width: 1rem;
+    border-bottom-width: 3rem;
+  }
+}
 .column {
   position: relative;
+  aspect-ratio: 1/1;
   width: 100%;
-  aspect-ratio: 1;
-  background-color: var(--background);
-  border-radius: 50%;
+  height: 100%;
+  overflow: hidden;
 }
-
+.column::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50vh;
+  outline: 1000px solid var(--accent);
+}
+@media (min-width: 550px) {
+  .column::before {
+    inset: 0.5rem;
+  }
+}
+.board-cell {
+  position: relative;
+}
 .marker {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
+  --_marker-animation: cubic-bezier(0.85, -0.28, 0.59, 1.1);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  border-radius: 50vh;
 }
 
 .red {
-    background-color: var(--marker-red);
+  background-color: var(--marker-red);
+  animation: falling calc(0.11s * var(--row)) var(--_marker-animation);
 }
 
 .yellow {
-    background-color: var(--marker-yellow);
+  background-color: var(--marker-yellow);
+  animation: falling calc(0.1s * var(--row)) var(--_marker-animation);
+}
+.marker::before {
+  content: '';
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 50vh;
+  z-index: 1000;
+  border: 3px solid transparent;
+}
+@media (min-width: 550px) {
+  .marker::before {
+    inset: 1rem;
+    border-width: 5px;
+  }
+}
+.yellow::before {
+  border-color: hsl(58, 79%, 40%);
+}
+.red::before {
+  border-color: hsl(0, 79%, 30%);
 }
 
+@keyframes falling {
+  0% {
+    transform: translateY(calc(-100% * var(--row)));
+  }
+}
 /* Player display css-- CHANGE later */
 
 .player-corner {
@@ -90,21 +133,19 @@ body {
   justify-content: space-between;
 }
 
-
-
 .highlight-red {
-    background-color: red;
+  background-color: red;
 }
 
 .highlight-yellow {
-    background-color: yellow;
+  background-color: yellow;
 }
 .red-text {
-    color: red;
+  color: red;
 }
 
 .yellow-text {
-    color: yellow;
+  color: yellow;
 }
 
 /* Gameover css-styling */
@@ -152,37 +193,37 @@ body {
 /* CSS for higscorelist*/
 
 .highscore-list {
-    background-color: var(--accent);
-    border-radius: 0.4rem;
-    padding: 1.1rem;
-    max-width: 31rem;
-    margin: 0 auto;
-    font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--accent);
+  border-radius: 0.4rem;
+  padding: 1.1rem;
+  max-width: 31rem;
+  margin: 0 auto;
+  font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .highscore-list h3 {
-    text-align: center;
-    font-size: 1.5em;
-    color: var(--text);
-    margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--text);
+  margin-bottom: 1rem;
 }
 
 .highscore-list table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
 }
 
 .highscore-list th {
-    background-color: var(--primary);
-    color: var(--text);
-    padding: 1rem;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 2px solid #000000;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+  background-color: var(--primary);
+  color: var(--text);
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #000000;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .gameover-info > .btn:hover {
@@ -190,55 +231,56 @@ body {
 }
 
 .highscore-list td {
-    padding: 1rem;
-    border-bottom: 1px solid #000000;
-    white-space: nowrap;
-    overflow: hidden;
+  padding: 1rem;
+  border-bottom: 1px solid #000000;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .highscore-list tr {
-    background-color: var(--background);
+  background-color: var(--background);
 }
 
 .highscore-list tr:hover {
-    background-color: var(--primary);
+  background-color: var(--primary);
 }
 
 .highscore-list tbody {
-    counter-reset: rowNumber;
+  counter-reset: rowNumber;
 }
 
 .highscore-list tbody td:first-child::before {
-    content: counter(rowNumber);
-    counter-increment: rowNumber;
-    display: inline-block;
-    text-align: center;
-    font-weight: bold;
-    margin-right: 1rem;
+  content: counter(rowNumber);
+  counter-increment: rowNumber;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  margin-right: 1rem;
 }
 
 .highscore-moves {
-    text-align: center;
+  text-align: center;
 }
 
 .highscore-list thead,
 .highscore-list tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 @media (max-width: 768px) {
-    .highscore-list {
-        padding: 1rem;
-    }
+  .highscore-list {
+    padding: 1rem;
+  }
 
-    .highscore-list th {
-        font-size: 0.9em;
-        padding: 0.8rem;
-    }
+  .highscore-list th {
+    font-size: 0.9em;
+    padding: 0.8rem;
+  }
 
-    .highscore-list td {
-        font-size: 0.8em;
-        padding: 0.6rem;
-    }
+  .highscore-list td {
+    font-size: 0.8em;
+    padding: 0.6rem;
+  }
+}
