@@ -14,6 +14,7 @@ export default class Board {
   gameOver: boolean | string;
   moveCounterRed: number;
   moveCounterYellow: number;
+  winningMarker: [number, number][];
 
   constructor(stateUpdater: Function) {
     this.stateUpdater = stateUpdater;
@@ -26,6 +27,7 @@ export default class Board {
     this.gameOver = false;
     this.moveCounterRed = 1;
     this.moveCounterYellow = 1;
+    this.winningMarker = [];
   }
 
   resetBoard() {
@@ -52,9 +54,16 @@ export default class Board {
         <div className="board">
           {this.matrix.map((row, rowIndex) => (
             <Fragment key={rowIndex}>
-              {row.map((column, columnIndex) => (
-                <div key={columnIndex} className={`column ${column.toLowerCase()}`} onClick={() => this.makeMove(columnIndex)}></div>
-              ))}
+              {row.map((column, columnIndex) => {
+                const isWinningMarker = this.winningMarker.some(([r, c]) => r === rowIndex && c === columnIndex);
+                return (
+                  <div
+                    key={columnIndex}
+                    className={`column ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
+                    onClick={() => this.makeMove(columnIndex)}
+                  ></div>
+                );
+              })}
             </Fragment>
           ))}
         </div>
@@ -70,6 +79,11 @@ export default class Board {
         this.moveCounterRed++;
       } else {
         this.moveCounterYellow++;
+      }
+      const winResult = this.winCheck.checkForWin(this.currentPlayer);
+
+      if (typeof winResult === 'string') {
+        this.winningMarker = this.winCheck.getWinningCells();
       }
       this.winner = this.winCheck.checkForWin(this.currentPlayer);
       this.isDraw = this.draw();
