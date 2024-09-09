@@ -37,6 +37,7 @@ export default class Board {
     this.isDraw = false;
     this.gameOver = false;
     this.stateUpdater();
+    this.winningMarker = [];
   }
 
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
