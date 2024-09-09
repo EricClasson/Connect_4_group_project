@@ -35,10 +35,12 @@ This project is a collaborative effort by our agile team to create a Four in a R
 - feature-board-styling -- Dennis
 - feature-display-who-won -- Eric
 - feature-smarter-ai -- Pontus
-- feature-play-again -- Dennis & kalle
+- feature-play-again -- Dennis
 - feature-highscore-list -- Eric & Alvin
-- feature-highscore-list -- Eric
 - feature-create-player-reg -- Kalle
+- feature-highscorelist-css-styling -- Alvin
+- feature-implement-computer-frontend -- Pontus
+- feature-changing-style-winner -- Eric
 
 ## Project done by
 
