@@ -58,11 +58,19 @@ export default class Board {
               {row.map((column, columnIndex) => {
                 const isWinningMarker = this.winningMarker.some(([r, c]) => r === rowIndex && c === columnIndex);
                 return (
-                  <div
-                    key={columnIndex}
-                    className={`column ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
-                    onClick={() => this.makeMove(columnIndex)}
-                  ></div>
+                  <div className="board-cell" key={columnIndex}>
+                    <div
+                      key={columnIndex}
+                      className={`column}`}
+                      onClick={() => this.makeMove(columnIndex)}
+                    ></div>
+                    {column && (
+                    <div
+                      style={{ '--row': rowIndex + 1 } as React.CSSProperties}
+                      className={`marker ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
+                    ></div>
+                  )}
+                  </div>
                 );
               })}
             </Fragment>

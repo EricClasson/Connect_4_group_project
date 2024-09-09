@@ -10,8 +10,8 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   background-color: var(--background);
   color: var(--text);
 }
@@ -26,42 +26,84 @@ body {
 .board {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.125rem;
-  background-color: var(--accent);
-  padding: 0.625rem;
-  border-radius: 0.625rem;
+  border: solid 0.5rem;
+  border-color: var(--accent);
+  border-radius: 1rem;
+  border-bottom-width: 1rem;
 }
-
+@media (min-width: 550px) {
+  .board {
+    border-width: 1rem;
+    border-bottom-width: 3rem;
+  }
+}
 .column {
   position: relative;
+  aspect-ratio: 1/1;
   width: 100%;
-  aspect-ratio: 1;
-  background-color: var(--background);
-  border-radius: 50%;
-  transition: background-color 0.3s ease, border 0.3s ease;
+  height: 100%;
+  overflow: hidden;
 }
-
-.marker {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
+.column::before {
+  content: '';
   position: absolute;
-  top: 1.25rem;
-  left: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+  inset: 2px;
+  border-radius: 50vh;
+  outline: 1000px solid var(--accent);
+}
+@media (min-width: 550px) {
+  .column::before {
+    inset: 0.5rem;
+  }
+}
+.board-cell {
+  position: relative;
+}
+.marker {
+  --_marker-animation: cubic-bezier(0.85, -0.28, 0.59, 1.1);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  border-radius: 50vh;
 }
 
 .red {
   background-color: var(--marker-red);
+  animation: falling calc(0.11s * var(--row)) var(--_marker-animation);
 }
 
 .yellow {
   background-color: var(--marker-yellow);
+  animation: falling calc(0.1s * var(--row)) var(--_marker-animation);
+}
+.marker::before {
+  content: '';
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 50vh;
+  z-index: 1000;
+  border: 3px solid transparent;
+}
+@media (min-width: 550px) {
+  .marker::before {
+    inset: 1rem;
+    border-width: 5px;
+  }
+}
+.yellow::before {
+  border-color: hsl(58, 79%, 40%);
+}
+.red::before {
+  border-color: hsl(0, 79%, 30%);
 }
 
+@keyframes falling {
+  0% {
+    transform: translateY(calc(-100% * var(--row)));
+  }
+}
 /* Player display css-- CHANGE later */
 
 .player-corner {
@@ -197,6 +239,10 @@ body {
 
 .highscore-list tr {
   background-color: var(--background);
+}
+
+.highscore-list tr:hover {
+  background-color: var(--primary);
 }
 
 .highscore-list tbody {
