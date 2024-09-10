@@ -40,7 +40,7 @@ export default function ViewWinner({ state, setState }: { state: IState; setStat
         className='reset-btn btn'
         onClick={handleResetGame}
       >
-        Reset Game
+        Play Again
       </button>
       <button
         className='reset-btn btn'
