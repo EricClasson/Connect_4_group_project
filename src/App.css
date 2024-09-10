@@ -10,8 +10,8 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--background);
   color: var(--text);
 }
@@ -106,46 +106,66 @@ body {
 }
 /* Player display css-- CHANGE later */
 
+.corner-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.corner-display h3 {
+  margin-block: 0;
+}
+
 .player-corner {
   --_marker-color: var(--marker-red, red);
   display: grid;
   place-content: center;
-  background-color: #fcfbfb;
-  color: black;
-  padding-inline: 2rem;
+  background-color: var(--background);
+  padding-inline: 1rem;
   padding-block: 0.5rem;
-  width: 100%;
-  max-width: 5rem;
-  min-height: 2rem;
-  outline: 3px solid var(--_marker-color);
+  border-radius: 50%;
+  width: clamp(4rem, 10vw, 6rem);
+  aspect-ratio: 1/1;
+  border: 4px solid var(--_marker-color);
+  outline-offset: -0.8rem;
+  transition: background-color 0.3s ease-in;
 }
 
-.player-red {
+.player-corner.player-red {
+  outline: 3px solid hsl(0, 79%, 30%);
   --_marker-color: var(--marker-red, red);
-}
-
-.player-yellow {
-  --_marker-color: var(--marker-yellow, yellow);
 }
 
 .board-nav-display-name {
   display: flex;
   justify-content: space-between;
 }
-
-.highlight-red {
-  background-color: red;
+.player-corner.player-yellow {
+  outline: 3px solid hsl(58, 79%, 40%);
+  --_marker-color: var(--marker-yellow, yellow);
 }
 
-.highlight-yellow {
-  background-color: yellow;
-}
-.red-text {
-  color: red;
+.corner-display > h3 {
+  transition: opacity 0.3s ease-in;
 }
 
-.yellow-text {
-  color: yellow;
+.corner-display > h3:first-child {
+  opacity: 0;
+}
+
+.highlight-red > h3:first-child {
+  opacity: 1;
+}
+
+.highlight-yellow > h3:first-child {
+  opacity: 1;
+}
+
+.highlight-red > .player-corner {
+  background-color: var(--marker-red);
+}
+.highlight-yellow > .player-corner {
+  background-color: var(--marker-yellow);
 }
 
 /* Gameover css-styling */
@@ -190,6 +210,14 @@ body {
   gap: 1rem;
 }
 
+.red-text {
+  color: var(--marker-red);
+}
+
+.yellow-text {
+  color: var(--marker-yellow);
+}
+
 /* CSS for higscorelist*/
 
 .highscore-list {
@@ -198,7 +226,8 @@ body {
   padding: 1.1rem;
   max-width: 31rem;
   margin: 0 auto;
-  font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .highscore-list h3 {
