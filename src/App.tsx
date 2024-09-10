@@ -7,6 +7,7 @@ import PlayerClass from './classes/Player';
 import { Fragment } from 'react';
 
 function App() {
+  const [isToggled, setIsToggled] = useState(false);
   const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
     board: new BoardClass(() => setState()),
@@ -23,10 +24,18 @@ function App() {
   function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    const playerRedName = form.elements.namedItem('playerRed') as HTMLInputElement;
-    const playerYellowName = form.elements.namedItem('playerYellow') as HTMLInputElement;
-    const playerYellowOption = form.elements.namedItem('playerYellowOption') as HTMLInputElement;
-    const playerRedOption = form.elements.namedItem('playerRedOption') as HTMLInputElement;
+    const playerRedName = form.elements.namedItem(
+      'playerRed'
+    ) as HTMLInputElement;
+    const playerYellowName = form.elements.namedItem(
+      'playerYellow'
+    ) as HTMLInputElement;
+    const playerYellowOption = form.elements.namedItem(
+      'playerYellowOption'
+    ) as HTMLInputElement;
+    const playerRedOption = form.elements.namedItem(
+      'playerRedOption'
+    ) as HTMLInputElement;
     console.log(playerYellowOption.value);
 
     const isNameValid = (name: string) => {
@@ -45,31 +54,65 @@ function App() {
 
     switch (playerRedOption.value) {
       case 'human':
-        state.playerRed = new PlayerClass(playerRedName.value, 'Red', false, false);
+        state.playerRed = new PlayerClass(
+          playerRedName.value,
+          'Red',
+          false,
+          false
+        );
         break;
       case 'false':
-        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, false);
+        state.playerRed = new PlayerClass(
+          playerRedName.value,
+          'Red',
+          true,
+          false
+        );
         break;
       case 'true':
-        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, true);
+        state.playerRed = new PlayerClass(
+          playerRedName.value,
+          'Red',
+          true,
+          true
+        );
         break;
     }
     switch (playerYellowOption.value) {
       case 'human':
-        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', false, false);
+        state.playerYellow = new PlayerClass(
+          playerYellowName.value,
+          'Yellow',
+          false,
+          false
+        );
         break;
       case 'false':
-        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, false);
+        state.playerYellow = new PlayerClass(
+          playerYellowName.value,
+          'Yellow',
+          true,
+          false
+        );
         break;
       case 'true':
-        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, true);
+        state.playerYellow = new PlayerClass(
+          playerYellowName.value,
+          'Yellow',
+          true,
+          true
+        );
         break;
     }
     board.stateUpdater();
   }
 
   useEffect(() => {
-    if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
+    if (
+      playerYellow?.isAI &&
+      board.currentPlayer === 'Yellow' &&
+      !board.gameOver
+    ) {
       setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
     }
     if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
@@ -84,51 +127,96 @@ function App() {
           <h2>Connect Four</h2>
           <div className="player-selection player-red">
             <label htmlFor="playerRed">Red Player</label>
-            <input type="text" name="playerRed" placeholder="Name for red player" />
+            <input
+              type="text"
+              name="playerRed"
+              placeholder="Name for red player"
+            />
             <div className="modal-option">
               <label htmlFor="humanRed">
                 Human
-                <input type="radio" defaultChecked name="playerRedOption" id="humanRed" value={'human'} />
+                <input
+                  type="radio"
+                  defaultChecked
+                  name="playerRedOption"
+                  id="humanRed"
+                  value={'human'}
+                />
               </label>
               <label htmlFor="aiEasyRed">
                 Ai - Easy
-                <input type="radio" name="playerRedOption" id="aiEasyRed" value={'false'} />
+                <input
+                  type="radio"
+                  name="playerRedOption"
+                  id="aiEasyRed"
+                  value={'false'}
+                />
               </label>
               <label htmlFor="aiHardRed">
                 Ai - Hard
-                <input type="radio" name="playerRedOption" id="aiHardRed" value={'true'} />
+                <input
+                  type="radio"
+                  name="playerRedOption"
+                  id="aiHardRed"
+                  value={'true'}
+                />
               </label>
             </div>
           </div>
           <div className="player-selection player-yellow">
             <label>Yellow Player</label>
-            <input type="text" name="playerYellow" placeholder="Name for yellow player" />
+            <input
+              type="text"
+              name="playerYellow"
+              placeholder="Name for yellow player"
+            />
             <div className="modal-option">
               <label htmlFor="humanYellow">
                 Human
-                <input type="radio" defaultChecked name="playerYellowOption" id="humanYellow" value={'human'} />
+                <input
+                  type="radio"
+                  defaultChecked
+                  name="playerYellowOption"
+                  id="humanYellow"
+                  value={'human'}
+                />
               </label>
               <label htmlFor="aiEasyYellow">
                 Ai - Easy
-                <input type="radio" name="playerYellowOption" id="aiEasyYellow" value={'false'} />
+                <input
+                  type="radio"
+                  name="playerYellowOption"
+                  id="aiEasyYellow"
+                  value={'false'}
+                />
               </label>
               <label htmlFor="aiHardYellow">
                 Ai - Hard
-                <input type="radio" name="playerYellowOption" id="aiHardYellow" value={'true'} />
+                <input
+                  type="radio"
+                  name="playerYellowOption"
+                  id="aiHardYellow"
+                  value={'true'}
+                />
               </label>
             </div>
           </div>
           <button className="btn" type="submit">
             Start Game
           </button>
+          <button className="btn" onClick={() => setIsToggled(!isToggled)}>
+            {isToggled ? 'Close HighScore List' : 'View HighScore List'}
+          </button>
+          <div>{isToggled && <ViewHighScoreList />}</div>
         </form>
-        <ViewHighScoreList />
       </>
     );
   };
 
   const highScore = (name: string, moves: number) => {
-    const highscores = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
+    const highscores = JSON.parse(
+      localStorage.getItem('highscores') || '[]'
+    ) as { name: string; moves: number }[];
 
     highscores.push({ name, moves });
     highscores.sort((a, b) => a.moves - b.moves).slice(0, 10);
@@ -140,9 +228,13 @@ function App() {
 
   useEffect(() => {
     if (board.gameOver && board.winner && !scoreUpdated) {
-      let winnerName = state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+      let winnerName =
+        state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
 
-      let winnerMoves = state.board.winner === 'Yellow' ? board.moveCounterRed : board.moveCounterYellow;
+      let winnerMoves =
+        state.board.winner === 'Yellow'
+          ? board.moveCounterRed
+          : board.moveCounterYellow;
       highScore(winnerName, winnerMoves);
 
       setScoreUpdated(true);
@@ -150,8 +242,12 @@ function App() {
   }, [board.gameOver, board.winner, scoreUpdated]);
 
   const ViewHighScoreList = () => {
-    const highscoresData = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
-    const sortedHighscores = highscoresData.sort((a, b) => a.moves - b.moves).slice(0, 10);
+    const highscoresData = JSON.parse(
+      localStorage.getItem('highscores') || '[]'
+    ) as { name: string; moves: number }[];
+    const sortedHighscores = highscoresData
+      .sort((a, b) => a.moves - b.moves)
+      .slice(0, 10);
     return (
       <div className="highscore-list">
         <h3>Highscore List</h3>
@@ -195,15 +291,29 @@ function App() {
             <div className="winner-display">
               {' '}
               <h3
-                className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}
+                className={
+                  state.board.winner === ''
+                    ? ''
+                    : state.board.winner === 'Red'
+                    ? 'red-text'
+                    : 'yellow-text'
+                }
               >
                 {' '}
                 {state.board.winner}
               </h3>
               <h3
-                className={state.board.winner === '' ? '' : state.board.winner === 'Red' ? 'red-text' : 'yellow-text'}
+                className={
+                  state.board.winner === ''
+                    ? ''
+                    : state.board.winner === 'Red'
+                    ? 'red-text'
+                    : 'yellow-text'
+                }
               >
-                {state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name}
+                {state.board.winner === 'Red'
+                  ? playerRed!.name
+                  : playerYellow!.name}
               </h3>
             </div>
           </>
@@ -226,8 +336,16 @@ function App() {
 
   return (
     <>
-      {!playerRed || !playerYellow ? <CreatePlayer /> : board.render(playerRed, playerYellow)}
-      {!board.gameOver ? <div className="game-currentplayer"></div> : <ViewWinner />}
+      {!playerRed || !playerYellow ? (
+        <CreatePlayer />
+      ) : (
+        board.render(playerRed, playerYellow)
+      )}
+      {!board.gameOver ? (
+        <div className="game-currentplayer"></div>
+      ) : (
+        <ViewWinner />
+      )}
     </>
   );
 }
