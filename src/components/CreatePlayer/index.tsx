@@ -1,10 +1,9 @@
 import { useState, FormEvent } from 'react';
 import { IState } from '../../App';
 import PlayerClass from '../../classes/Player';
-interface CreatePlayerProps {
-  state: IState;
-}
-export default function CreatePlayer({ state }: CreatePlayerProps) {
+import HighScore from '../HighScore';
+
+export default function CreatePlayer({ state }: { state: IState }) {
   const [errorMessageRed, setErrorMessageRed] = useState<string>('');
   const [errorMessageYellow, setErrorMessageYellow] = useState<string>('');
   const [isToggled, setIsToggled] = useState(false);
@@ -150,13 +149,14 @@ export default function CreatePlayer({ state }: CreatePlayerProps) {
         >
           Start Game
         </button>
-        {/* <button
+        <button
+          type='button'
           className='btn'
           onClick={() => setIsToggled(!isToggled)}
         >
           {isToggled ? 'Close HighScore List' : 'View HighScore List'}
         </button>
-        <div>{isToggled && <ViewHighScoreList />}</div> */}
+        <div>{isToggled && <HighScore state={state} />}</div>
       </form>
     </>
   );
