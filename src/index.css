@@ -1,22 +1,22 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-        'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: var(--background);
-    color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
 }
 #root {
-    width: min(100% - 0rem, 100ch);
-    margin-inline: auto;
-    --text: #131002;
-    --background: #fdfaee;
-    --primary: #e4ab1e;
-    --secondary: #88f1de;
-    --accent: #509dea;
-    --marker-red: #e41e1e;
-    --marker-yellow: #f1ed88;
+  width: min(100% - 0rem, 85vh);
+  margin-inline: auto;
+  --text: #131002;
+  --background: #fdfaee;
+  --primary: #e4ab1e;
+  --secondary: #88f1de;
+  --accent: #509dea;
+  --marker-red: #e41e1e;
+  --marker-yellow: #f1ed88;
 }
