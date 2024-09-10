@@ -10,7 +10,7 @@ body {
   color: var(--text);
 }
 #root {
-  width: min(100% - 0rem, 85vh);
+  width: min(100% - 0rem, 80vh);
   margin-inline: auto;
   --text: #131002;
   --background: #fdfaee;
