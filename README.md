@@ -41,6 +41,12 @@ This project is a collaborative effort by our agile team to create a Four in a R
 - feature-highscorelist-css-styling -- Alvin
 - feature-implement-computer-frontend -- Pontus
 - feature-changing-style-winner -- Eric
+- feature-player-input -- Dennis
+- feature-marker-animation -- Pontus
+- Feature-adding-winner-move-animation -- alvin
+- Feature-marker -- Eric
+- feature-fix-alert-and-bugs -- Kalle
+- feature-components-new -- Everyone
 
 ## Project done by
 
