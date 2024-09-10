@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { IState } from '../../App';
 export default function HighScore({ state }: { state: IState }) {
