@@ -6,13 +6,8 @@ export default class Player {
   isAI: boolean;
   isSmart: boolean;
 
-  constructor(
-    name: string,
-    color: string,
-    isAI: boolean = false,
-    isSmart: boolean = false
-  ) {
-    this.name = name;
+  constructor(name: string, color: string, isAI: boolean = false, isSmart: boolean = false) {
+    this.name = name.toUpperCase();
     this.color = color;
     this.isAI = isAI;
     this.isSmart = isSmart;

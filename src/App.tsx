@@ -7,9 +7,10 @@ import PlayerClass from './classes/Player';
 import { Fragment } from 'react';
 
 function App() {
+
   const [errorMessageRed, setErrorMessageRed] = useState<string>('');
   const [errorMessageYellow, setErrorMessageYellow] = useState<string>('');
-
+  const [isToggled, setIsToggled] = useState(false);
   const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
     board: new BoardClass(() => setState()),
@@ -22,19 +23,6 @@ function App() {
   };
 
   const { board, playerRed, playerYellow } = state;
-
-  useEffect(() => {
-    if (
-      playerYellow?.isAI &&
-      board.currentPlayer === 'Yellow' &&
-      !board.gameOver
-    ) {
-      setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
-    }
-    if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
-      setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
-    }
-  }, [setState]);
 
   function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -135,7 +123,7 @@ function App() {
     if (playerRed?.isAI && board.currentPlayer === 'Red' && !board.gameOver) {
       setTimeout(() => playerRed.makeAIMove(board), COMPUTER_DELAY);
     }
-  }, [setState]);
+  }, [setState, playerRed, playerYellow, board]);
 
   const CreatePlayer = () => {
     return (
@@ -227,8 +215,11 @@ function App() {
           <button className="btn" type="submit">
             Start Game
           </button>
+          <button className="btn" onClick={() => setIsToggled(!isToggled)}>
+            {isToggled ? 'Close HighScore List' : 'View HighScore List'}
+          </button>
+          <div>{isToggled && <ViewHighScoreList />}</div>
         </form>
-        <ViewHighScoreList />
       </>
     );
   };
