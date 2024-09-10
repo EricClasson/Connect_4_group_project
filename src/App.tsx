@@ -7,6 +7,9 @@ import PlayerClass from './classes/Player';
 import { Fragment } from 'react';
 
 function App() {
+
+  const [errorMessageRed, setErrorMessageRed] = useState<string>('');
+  const [errorMessageYellow, setErrorMessageYellow] = useState<string>('');
   const [isToggled, setIsToggled] = useState(false);
   const COMPUTER_DELAY = 1000;
   const [state, _setState] = useState({
@@ -43,14 +46,16 @@ function App() {
     };
 
     if (!isNameValid(playerRedName.value)) {
-      alert('Please enter a valid name for the Red player.');
+      setErrorMessageRed('Please enter a valid name for the Red player.');
       return;
     }
 
     if (!isNameValid(playerYellowName.value)) {
-      alert('Please enter a valid name for the Yellow player.');
+      setErrorMessageYellow('Please enter a valid name for the Yellow player.');
       return;
     }
+    setErrorMessageRed('');
+    setErrorMessageYellow('');
 
     switch (playerRedOption.value) {
       case 'human':
@@ -132,6 +137,9 @@ function App() {
               name="playerRed"
               placeholder="Name for red player"
             />
+            {errorMessageRed && (
+              <p style={{ color: 'red' }}>{errorMessageRed}</p>
+            )}
             <div className="modal-option">
               <label htmlFor="humanRed">
                 Human
@@ -170,6 +178,9 @@ function App() {
               name="playerYellow"
               placeholder="Name for yellow player"
             />
+            {errorMessageYellow && (
+              <p style={{ color: 'red' }}>{errorMessageYellow}</p>
+            )}
             <div className="modal-option">
               <label htmlFor="humanYellow">
                 Human
