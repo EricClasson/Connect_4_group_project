@@ -70,6 +70,7 @@ body {
   border-radius: 50vh;
   border: var(--_background-color) 2px solid;
   transition: background-color 0.25s ease;
+  cursor: pointer;
 }
 .modal-option > label:has(> input:checked) {
   background-color: var(--_background-color);
@@ -82,8 +83,7 @@ body {
   border: 0;
   background-color: var(--primary);
   font-weight: 500;
-  transition: transfrom 0.25s ease, background-color 0.25s ease,
-    color 0.25s ease;
+  transition: transfrom 0.25s ease, background-color 0.25s ease, color 0.25s ease;
   cursor: pointer;
 }
 .btn:hover {
@@ -95,4 +95,8 @@ body {
 }
 input[type='text'] {
   min-width: 0;
+}
+
+.error-message {
+  margin: 0;
 }
