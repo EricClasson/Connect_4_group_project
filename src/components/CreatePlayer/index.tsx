@@ -114,7 +114,7 @@ export default function CreatePlayer({ state }: { state: IState }) {
         <button type="button" className="btn" onClick={() => setIsToggled(!isToggled)}>
           {isToggled ? 'Close HighScore List' : 'View HighScore List'}
         </button>
-        <div>{isToggled && <HighScore state={state} />}</div>
+        <div>{isToggled && <HighScore />}</div>
       </form>
     </>
   );

@@ -25,6 +25,28 @@ function App() {
 
   const { board, playerRed, playerYellow } = state;
 
+  const highScore = (name: string, moves: number) => {
+    const highscores = JSON.parse(localStorage.getItem('highscores') || '[]') as { name: string; moves: number }[];
+
+    highscores.push({ name, moves });
+    highscores.sort((a, b) => a.moves - b.moves).slice(0, 10);
+
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+  };
+
+  const [scoreUpdated, setScoreUpdated] = useState(false);
+
+  useEffect(() => {
+    if (board.gameOver && board.winner && !scoreUpdated) {
+      const winnerName = state.board.winner === 'Red' ? playerRed!.name : playerYellow!.name;
+
+      const winnerMoves = state.board.winner === 'Yellow' ? board.moveCounterRed : board.moveCounterYellow;
+      highScore(winnerName, winnerMoves);
+
+      setScoreUpdated(true);
+    }
+  }, [board.gameOver, board.winner, scoreUpdated]);
+
   useEffect(() => {
     if (playerYellow?.isAI && board.currentPlayer === 'Yellow' && !board.gameOver) {
       setTimeout(() => playerYellow.makeAIMove(board), COMPUTER_DELAY);
@@ -37,14 +59,7 @@ function App() {
   return (
     <>
       {!playerRed || !playerYellow ? <CreatePlayer state={state} /> : board.render(playerRed, playerYellow)}
-      {!board.gameOver ? (
-        <div className='game-currentplayer'></div>
-      ) : (
-        <ViewWinner
-          state={state}
-          setState={setState}
-        />
-      )}
+      {!board.gameOver ? <div className="game-currentplayer"></div> : <ViewWinner state={state} setState={setState} />}
     </>
   );
 }
