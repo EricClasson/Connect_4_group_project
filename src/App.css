@@ -52,6 +52,9 @@ body {
   border-radius: 50vh;
   outline: 1000px solid var(--accent);
 }
+.not-allowed {
+  cursor: not-allowed;
+}
 @media (min-width: 550px) {
   .column::before {
     inset: 0.5rem;
