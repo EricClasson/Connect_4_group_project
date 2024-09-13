@@ -59,114 +59,60 @@ export default function CreatePlayer({ state }: { state: IState }) {
   }
   return (
     <>
-      <form
-        className='modal'
-        onSubmit={registerName}
-      >
+      <form className="modal" onSubmit={registerName}>
         <h2>Connect Four</h2>
-        <div className='player-selection player-red'>
-          <label htmlFor='playerRed'>Red Player</label>
-          <input
-            type='text'
-            name='playerRed'
-            placeholder='Name for red player'
-          />
+        <div className="player-selection player-red">
+          <label htmlFor="playerRed">Red Player</label>
+          <input type="text" name="playerRed" placeholder="Name for red player" />
           {errorMessageRed && (
-            <p
-              className='error-message'
-              style={{ color: 'red' }}
-            >
+            <p className="error-message" style={{ color: 'red' }}>
               {errorMessageRed}
             </p>
           )}
-          <div className='modal-option'>
-            <label htmlFor='humanRed'>
+          <div className="modal-option">
+            <label htmlFor="humanRed">
               Human
-              <input
-                type='radio'
-                defaultChecked
-                name='playerRedOption'
-                id='humanRed'
-                value={'human'}
-              />
+              <input type="radio" defaultChecked name="playerRedOption" id="humanRed" value={'human'} />
             </label>
-            <label htmlFor='aiEasyRed'>
+            <label htmlFor="aiEasyRed">
               AI - Easy
-              <input
-                type='radio'
-                name='playerRedOption'
-                id='aiEasyRed'
-                value={'false'}
-              />
+              <input type="radio" name="playerRedOption" id="aiEasyRed" value={'false'} />
             </label>
-            <label htmlFor='aiHardRed'>
+            <label htmlFor="aiHardRed">
               AI - Hard
-              <input
-                type='radio'
-                name='playerRedOption'
-                id='aiHardRed'
-                value={'true'}
-              />
+              <input type="radio" name="playerRedOption" id="aiHardRed" value={'true'} />
             </label>
           </div>
+          <input type="file" title="Red photo" name="playerRedFile" id="playerRedFile" />
         </div>
-        <div className='player-selection player-yellow'>
+        <div className="player-selection player-yellow">
           <label>Yellow Player</label>
-          <input
-            type='text'
-            name='playerYellow'
-            placeholder='Name for yellow player'
-          />
+          <input type="text" name="playerYellow" placeholder="Name for yellow player" />
           {errorMessageYellow && (
-            <p
-              className='error-message'
-              style={{ color: 'red' }}
-            >
+            <p className="error-message" style={{ color: 'red' }}>
               {errorMessageYellow}
             </p>
           )}
-          <div className='modal-option'>
-            <label htmlFor='humanYellow'>
+          <div className="modal-option">
+            <label htmlFor="humanYellow">
               Human
-              <input
-                type='radio'
-                defaultChecked
-                name='playerYellowOption'
-                id='humanYellow'
-                value={'human'}
-              />
+              <input type="radio" defaultChecked name="playerYellowOption" id="humanYellow" value={'human'} />
             </label>
-            <label htmlFor='aiEasyYellow'>
+            <label htmlFor="aiEasyYellow">
               AI - Easy
-              <input
-                type='radio'
-                name='playerYellowOption'
-                id='aiEasyYellow'
-                value={'false'}
-              />
+              <input type="radio" name="playerYellowOption" id="aiEasyYellow" value={'false'} />
             </label>
-            <label htmlFor='aiHardYellow'>
+            <label htmlFor="aiHardYellow">
               AI - Hard
-              <input
-                type='radio'
-                name='playerYellowOption'
-                id='aiHardYellow'
-                value={'true'}
-              />
+              <input type="radio" name="playerYellowOption" id="aiHardYellow" value={'true'} />
             </label>
           </div>
+          <input type="file" title="Yellow photo" name="playerYellowFile" id="playerYellowFile" />
         </div>
-        <button
-          className='btn'
-          type='submit'
-        >
+        <button className="btn" type="submit">
           Start Game
         </button>
-        <button
-          type='button'
-          className='btn'
-          onClick={() => setIsToggled(!isToggled)}
-        >
+        <button type="button" className="btn" onClick={() => setIsToggled(!isToggled)}>
           {isToggled ? 'Close HighScore List' : 'View HighScore List'}
         </button>
         <div>{isToggled && <HighScore />}</div>
