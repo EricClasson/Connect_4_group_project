@@ -5,12 +5,14 @@ export default class Player {
   color: string;
   isAI: boolean;
   isSmart: boolean;
+  image?: string;
 
-  constructor(name: string, color: string, isAI: boolean = false, isSmart: boolean = false) {
+  constructor(name: string, color: string, isAI: boolean = false, isSmart: boolean = false, image?: string) {
     this.name = name.toUpperCase();
     this.color = color;
     this.isAI = isAI;
     this.isSmart = isSmart;
+    this.image = image;
   }
 
   makeAIMove(board: Board): void {
