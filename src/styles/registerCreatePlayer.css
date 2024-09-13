@@ -1,0 +1,102 @@
+#root:has(.modal) {
+  width: min(100% - 3rem, 55ch);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal {
+  padding-block: 1rem;
+  border-radius: 0.5rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.modal h2 {
+  text-align: center;
+  margin-block: 0;
+  margin-block-start: 1.2rem;
+  font-size: 37px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.player-selection {
+  --_background-color: var(--marker-red, red);
+  --_color: var(--background, white);
+  display: grid;
+  gap: 1rem;
+  margin-block-end: 0.5rem;
+}
+.player-selection.player-red {
+  --_background-color: var(--marker-red);
+  --_color: var(--text);
+}
+.player-selection.player-yellow {
+  --_background-color: var(--marker-yellow);
+  --_color: var(--text);
+}
+
+.player-selection > label {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.player-selection input[type='text'] {
+  padding-inline: 1rem;
+  padding-block: 0.825rem;
+  border: 1px solid #ccc;
+  border-radius: var(--borderRadius-reg);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.player-selection input[type='text']:focus {
+  outline: var(--_background-color) solid 2px;
+}
+.modal-option {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.modal-option > label > input {
+  display: none;
+}
+.modal-option > label {
+  padding-inline: 0.825rem;
+  padding-block: 0.25rem;
+  border-radius: 50vh;
+  border: var(--_background-color) 2px solid;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+}
+.modal-option > label:has(> input:checked) {
+  background-color: var(--_background-color);
+  color: var(--_color);
+}
+.btn {
+  padding-inline: 1rem;
+  padding-block: 0.825rem;
+  border-radius: 0.5rem;
+  border: 0;
+  background-color: var(--primary);
+  font-weight: 500;
+  transition: transfrom 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: var(--accent);
+  color: var(--text);
+}
+.btn:active {
+  transform: scaleX(0.98) scaleY(0.98);
+}
+input[type='text'] {
+  min-width: 0;
+}
+
+.error-message {
+  margin: 0;
+}
