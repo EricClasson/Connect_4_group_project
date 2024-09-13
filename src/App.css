@@ -125,14 +125,19 @@ body {
   display: grid;
   place-content: center;
   background-color: var(--background);
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
+  padding: 0.3rem;
   border-radius: 50%;
   width: clamp(4rem, 10vw, 6rem);
   aspect-ratio: 1/1;
-  border: 4px solid var(--_marker-color);
+  border: 5px solid var(--_marker-color);
   outline-offset: -0.8rem;
   transition: background-color 0.3s ease-in;
+}
+
+.player-corner img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
 }
 
 .player-corner.player-red {
@@ -322,8 +327,33 @@ body {
   pointer-events: none;
 }
 
-/*CreatePlayer Style*/
+
+/*👉createPlayer👈*/
+
+.file-input::-webkit-file-upload-button {
+  background-color: var(--background);
+  border: 2px solid var(--accent);
+  padding-inline: 0.825rem;
+  padding-block: 0.25rem;
+  border-radius: 50vh;
+  cursor: pointer;
+  transition: transfrom 0.25s ease, background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.file-label {
+  font-size: 1rem !important;
+}
+
+.file-input::-webkit-file-upload-button:hover {
+  background-color: var(--accent);
+}
+
+.file-input::-webkit-file-upload-button:active {
+  transform: scaleX(0.98) scaleY(0.98);
+
 
 .error-message {
   color: red;
+
 }

@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { IState } from '../../App';
 import PlayerClass from '../../classes/Player';
 import HighScore from '../HighScore';
+import fileToBase64 from '../../lib/fileToBase64';
 
 export default function CreatePlayer({ state }: { state: IState }) {
   const [errorMessageRed, setErrorMessageRed] = useState<string>('');
@@ -9,7 +10,7 @@ export default function CreatePlayer({ state }: { state: IState }) {
   const [isToggled, setIsToggled] = useState(false);
   const { board } = state;
 
-  function registerName(event: FormEvent<HTMLFormElement>) {
+  async function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const playerRedName = form.elements.namedItem(
@@ -24,7 +25,16 @@ export default function CreatePlayer({ state }: { state: IState }) {
     const playerRedOption = form.elements.namedItem(
       'playerRedOption'
     ) as HTMLInputElement;
-
+    const playerRedFile = form.elements.namedItem(
+      'playerRedFile'
+    ) as HTMLInputElement;
+    const playerYellowFile = form.elements.namedItem(
+      'playerYellowFile'
+    ) as HTMLInputElement;
+    
+    const redImage = (await fileToBase64(playerRedFile)) as string;
+    const yellowImage = (await fileToBase64(playerYellowFile)) as string;
+    
     const isNameValid = (name: string) => {
       return name.trim() !== '' && isNaN(Number(name));
     };
@@ -55,7 +65,8 @@ export default function CreatePlayer({ state }: { state: IState }) {
           playerRedName.value,
           'Red',
           false,
-          false
+          false,
+          redImage
         );
         break;
       case 'false':
@@ -63,7 +74,8 @@ export default function CreatePlayer({ state }: { state: IState }) {
           playerRedName.value,
           'Red',
           true,
-          false
+          false,
+          redImage
         );
         break;
       case 'true':
@@ -71,7 +83,8 @@ export default function CreatePlayer({ state }: { state: IState }) {
           playerRedName.value,
           'Red',
           true,
-          true
+          true,
+          redImage
         );
         break;
     }
@@ -81,7 +94,8 @@ export default function CreatePlayer({ state }: { state: IState }) {
           playerYellowName.value,
           'Yellow',
           false,
-          false
+          false,
+          yellowImage
         );
         break;
       case 'false':
@@ -89,7 +103,8 @@ export default function CreatePlayer({ state }: { state: IState }) {
           playerYellowName.value,
           'Yellow',
           true,
-          false
+          false,
+          yellowImage
         );
         break;
       case 'true':
@@ -97,7 +112,8 @@ export default function CreatePlayer({ state }: { state: IState }) {
           playerYellowName.value,
           'Yellow',
           true,
-          true
+          true,
+          yellowImage
         );
         break;
     }
@@ -147,6 +163,14 @@ export default function CreatePlayer({ state }: { state: IState }) {
               />
             </label>
           </div>
+          <label className="file-label">Lägg till bild nedan</label>
+          <input
+            type="file"
+            title="Red photo"
+            className="file-input"
+            name="playerRedFile"
+            id="playerRedFile"
+          />
         </div>
         <div className="player-selection player-yellow">
           <label>Yellow Player</label>
@@ -188,6 +212,14 @@ export default function CreatePlayer({ state }: { state: IState }) {
               />
             </label>
           </div>
+          <label className="file-label">Lägg till bild nedan</label>
+          <input
+            type="file"
+            title="Yellow photo"
+            name="playerYellowFile"
+            id="playerYellowFile"
+            className="file-input"
+          />
         </div>
         <button className="btn" type="submit">
           Start Game
