@@ -327,7 +327,6 @@ body {
   pointer-events: none;
 }
 
-
 /*👉createPlayer👈*/
 
 .file-input::-webkit-file-upload-button {
@@ -351,9 +350,7 @@ body {
 
 .file-input::-webkit-file-upload-button:active {
   transform: scaleX(0.98) scaleY(0.98);
-
-
+}
 .error-message {
   color: red;
-
 }
