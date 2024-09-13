@@ -175,19 +175,20 @@ body {
 /* Gameover css-styling */
 
 .gameover-info {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: max-content;
   display: grid;
-  gap: 2rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #509dea;
+  gap: 1.5rem;
   padding: clamp(1rem, 10vw, 4rem);
-  border-radius: 15px;
   font-size: 2rem;
 }
 
