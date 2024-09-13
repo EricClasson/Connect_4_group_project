@@ -31,25 +31,33 @@ export default function CreatePlayer({ state }: { state: IState }) {
     const playerYellowFile = form.elements.namedItem(
       'playerYellowFile'
     ) as HTMLInputElement;
-
+    
     const redImage = (await fileToBase64(playerRedFile)) as string;
     const yellowImage = (await fileToBase64(playerYellowFile)) as string;
-
+    
     const isNameValid = (name: string) => {
       return name.trim() !== '' && isNaN(Number(name));
     };
 
+    let isValid = true;
+
     if (!isNameValid(playerRedName.value)) {
       setErrorMessageRed('Please enter a valid name for the Red player.');
-      return;
+      isValid = false;
+    } else {
+      setErrorMessageRed('');
     }
 
     if (!isNameValid(playerYellowName.value)) {
       setErrorMessageYellow('Please enter a valid name for the Yellow player.');
+      isValid = false;
+    } else {
+      setErrorMessageYellow('');
+    }
+
+    if (!isValid) {
       return;
     }
-    setErrorMessageRed('');
-    setErrorMessageYellow('');
 
     switch (playerRedOption.value) {
       case 'human':
@@ -123,9 +131,7 @@ export default function CreatePlayer({ state }: { state: IState }) {
             placeholder="Name for red player"
           />
           {errorMessageRed && (
-            <p className="error-message" style={{ color: 'red' }}>
-              {errorMessageRed}
-            </p>
+            <p className="error-message">{errorMessageRed}</p>
           )}
           <div className="modal-option">
             <label htmlFor="humanRed">
@@ -174,9 +180,7 @@ export default function CreatePlayer({ state }: { state: IState }) {
             placeholder="Name for yellow player"
           />
           {errorMessageYellow && (
-            <p className="error-message" style={{ color: 'red' }}>
-              {errorMessageYellow}
-            </p>
+            <p className="error-message">{errorMessageYellow}</p>
           )}
           <div className="modal-option">
             <label htmlFor="humanYellow">
@@ -217,7 +221,6 @@ export default function CreatePlayer({ state }: { state: IState }) {
             className="file-input"
           />
         </div>
-
         <button className="btn" type="submit">
           Start Game
         </button>
