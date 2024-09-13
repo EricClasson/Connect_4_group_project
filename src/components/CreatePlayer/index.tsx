@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { IState } from '../../App';
 import PlayerClass from '../../classes/Player';
 import HighScore from '../HighScore';
+import fileToBase64 from '../../lib/fileToBase64';
 
 export default function CreatePlayer({ state }: { state: IState }) {
   const [errorMessageRed, setErrorMessageRed] = useState<string>('');
@@ -9,13 +10,21 @@ export default function CreatePlayer({ state }: { state: IState }) {
   const [isToggled, setIsToggled] = useState(false);
   const { board } = state;
 
-  function registerName(event: FormEvent<HTMLFormElement>) {
+  async function registerName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const playerRedName = form.elements.namedItem('playerRed') as HTMLInputElement;
     const playerYellowName = form.elements.namedItem('playerYellow') as HTMLInputElement;
     const playerYellowOption = form.elements.namedItem('playerYellowOption') as HTMLInputElement;
     const playerRedOption = form.elements.namedItem('playerRedOption') as HTMLInputElement;
+    const playerRedFile = form.elements.namedItem('playerRedFile') as HTMLInputElement;
+    const playerYellowFile = form.elements.namedItem('playerYellowFile') as HTMLInputElement;
+
+    const redImage = (await fileToBase64(playerRedFile)) as string;
+    const yellowImage = (await fileToBase64(playerYellowFile)) as string;
+
+    console.log({ redImage });
+    console.log({ yellowImage });
 
     const isNameValid = (name: string) => {
       return name.trim() !== '' && isNaN(Number(name));
