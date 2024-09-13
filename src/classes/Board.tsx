@@ -42,44 +42,65 @@ export default class Board {
 
   render(playerRed: PlayerClass | null, playerYellow: PlayerClass | null) {
     return (
-      <div className='board-container'>
-        <div className='board-nav-display-name'>
-          <div className={`corner-display ${this.currentPlayer === 'Red' ? 'highlight-red' : ''}`}>
+      <div className="board-container">
+        <div className="board-nav-display-name">
+          <div
+            className={`corner-display ${
+              this.currentPlayer === 'Red' ? 'highlight-red' : ''
+            }`}
+          >
             <h3>Your turn:</h3>
             <h3>{playerRed?.name}</h3>
-            <div className={'player-corner player-red'}></div>
+            <div className={'player-corner player-red'}>
+              <img src={playerRed?.image} />
+            </div>
           </div>
-          <div className={`corner-display ${this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''} `}>
+          <div
+            className={`corner-display ${
+              this.currentPlayer === 'Yellow' ? 'highlight-yellow' : ''
+            } `}
+          >
             <h3>Your turn:</h3>
             <h3>{playerYellow?.name}</h3>
-            <div className={`player-corner player-yellow `}></div>
+            <div className={`player-corner player-yellow `}>
+              <img src={playerYellow?.image} />
+            </div>
           </div>
         </div>
 
         <div
-          className={`board ${this.currentPlayer === playerRed!.color && playerRed!.isAI ? 'inactive' : ''} ${
-            this.currentPlayer === playerYellow!.color && playerYellow!.isAI ? 'inactive' : ''
+          className={`board ${
+            this.currentPlayer === playerRed!.color && playerRed!.isAI
+              ? 'inactive'
+              : ''
+          } ${
+            this.currentPlayer === playerYellow!.color && playerYellow!.isAI
+              ? 'inactive'
+              : ''
           }`}
         >
           {this.matrix.map((row, rowIndex) => (
             <Fragment key={rowIndex}>
               {row.map((column, columnIndex) => {
-                const isWinningMarker = this.winningMarker.some(([r, c]) => r === rowIndex && c === columnIndex);
+                const isWinningMarker = this.winningMarker.some(
+                  ([r, c]) => r === rowIndex && c === columnIndex
+                );
                 const isColumnFull = this.matrix[0][columnIndex] !== ' ';
                 return (
-                  <div
-                    className='board-cell'
-                    key={columnIndex}
-                  >
+                  <div className="board-cell" key={columnIndex}>
                     <div
                       key={columnIndex}
                       className={`column ${isColumnFull ? 'not-allowed' : ''}`}
-                      onClick={() => !isColumnFull && this.makeMove(columnIndex)}
+                      onClick={() =>
+                        !isColumnFull && this.makeMove(columnIndex)
+                      }
                     ></div>
                     {column && (
                       <div
                         style={{ '--row': rowIndex + 1 } as React.CSSProperties}
-                        className={`marker ${column.toLowerCase()} ${isWinningMarker ? 'winning-marker' : ''}`}
+                        className={`marker ${column.toLowerCase()} ${
+                          isWinningMarker ? 'winning-marker' : ''
+                        }`}
                       ></div>
                     )}
                   </div>
