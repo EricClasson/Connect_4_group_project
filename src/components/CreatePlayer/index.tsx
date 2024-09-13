@@ -23,9 +23,6 @@ export default function CreatePlayer({ state }: { state: IState }) {
     const redImage = (await fileToBase64(playerRedFile)) as string;
     const yellowImage = (await fileToBase64(playerYellowFile)) as string;
 
-    console.log({ redImage });
-    console.log({ yellowImage });
-
     const isNameValid = (name: string) => {
       return name.trim() !== '' && isNaN(Number(name));
     };
@@ -44,24 +41,24 @@ export default function CreatePlayer({ state }: { state: IState }) {
 
     switch (playerRedOption.value) {
       case 'human':
-        state.playerRed = new PlayerClass(playerRedName.value, 'Red', false, false);
+        state.playerRed = new PlayerClass(playerRedName.value, 'Red', false, false, redImage);
         break;
       case 'false':
-        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, false);
+        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, false, redImage);
         break;
       case 'true':
-        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, true);
+        state.playerRed = new PlayerClass(playerRedName.value, 'Red', true, true, redImage);
         break;
     }
     switch (playerYellowOption.value) {
       case 'human':
-        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', false, false);
+        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', false, false, yellowImage);
         break;
       case 'false':
-        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, false);
+        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, false, yellowImage);
         break;
       case 'true':
-        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, true);
+        state.playerYellow = new PlayerClass(playerYellowName.value, 'Yellow', true, true, yellowImage);
         break;
     }
     board.stateUpdater();
