@@ -25,28 +25,38 @@ This project is a collaborative effort by our agile team to create a Four in a R
 ## Branches
 
 - Develop
-- feature-map-game-startup -- Everyone
-- feature-board-render -- Everyone
-- feature-make-move -- Eric, Alvin & Pontus
-- feature-classes-update -- Eric & alvin
-- feature-refactor-wincheck -- Pontus
-- feature-create-player-inApp -- Kalle
-- feature-display-player -- Alvin
-- feature-board-styling -- Dennis
-- feature-display-who-won -- Eric
-- feature-smarter-ai -- Pontus
-- feature-play-again -- Dennis
-- feature-highscore-list -- Eric & Alvin
-- feature-create-player-reg -- Kalle
-- feature-highscorelist-css-styling -- Alvin
-- feature-implement-computer-frontend -- Pontus
-- feature-changing-style-winner -- Eric
-- feature-player-input -- Dennis
-- feature-marker-animation -- Pontus
-- Feature-adding-winner-move-animation -- alvin
+- Feature-map-game-startup -- Everyone
+- Feature-board-render -- Everyone
+- Feature-make-move -- Eric, Alvin & Pontus
+- Feature-classes-update -- Eric & Alvin
+- Feature-refactor-wincheck -- Pontus
+- Feature-create-player-inApp -- Kalle
+- Feature-display-player -- Alvin
+- Feature-board-styling -- Dennis
+- Feature-display-who-won -- Eric
+- Feature-smarter-ai -- Pontus
+- Feature-play-again -- Dennis
+- Feature-highscore-list -- Eric & Alvin
+- Feature-create-player-reg -- Kalle
+- Feature-highscorelist-css-styling -- Alvin
+- Feature-implement-computer-frontend -- Pontus
+- Feature-changing-style-winner -- Eric
+- Feature-player-input -- Dennis
+- Feature-marker-animation -- Pontus
+- Feature-adding-winner-move-animation -- Alvin
 - Feature-marker -- Eric
-- feature-fix-alert-and-bugs -- Kalle
-- feature-components-new -- Everyone
+- Feature-fix-alert-and-bugs -- Kalle
+- Feature-components-new -- Everyone
+- Feature-change-currentPlayer -- Eric
+- Feature-fix-favIcon-title -- Kalle
+- Fix/cursor-margin-root -- Alvin
+- Bugfix-highscore -- Alvin
+- Feature-column-full-pointer -- Dennis
+- Small-fixes -- Dennis
+- Fixing-winner-modal -- Alvin
+- Fixing-Error-Message-style -- Kalle
+- Feature-player-image -- Pontus & Eric
+- Readme - Everyone
 
 ## Project done by
 
